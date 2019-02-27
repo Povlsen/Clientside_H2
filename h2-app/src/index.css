@@ -18,11 +18,46 @@ h4 {
     border-radius: 0px;
 }
 
+.dashboard_grid{
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25% ;
+  position: fixed;
+  width: 100%;
+  height: auto;
+}
+
+.grid_item{
+  color: rgba(169, 169, 169, 1);
+  align-content: center;
+  text-align: center;
+  margin: 5%;
+  height: 450px;
+  font-size: 5%;
+  background-color: rgb(132, 224, 255); 
+  border-radius: 5px;
+}
+
+.grid_item:hover{
+  color: rgba(200, 200, 200, 1);
+  font-size: 6%;
+}
+
 @media only screen and (max-width: 600px) {
   body {
     font-size: 11px;
   }
+
+  .dashboard_grid{
+    display: grid;
+    grid-template-rows: 25% 25% 25% 25% ;
+    grid-template-columns: 100%;
+    position: relative; 
+    width: 100%;
+    height: auto;
+  }
+
 }
 .btn btn-outline-primary {
   font-size: 12px;
 }
+
