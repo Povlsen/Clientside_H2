@@ -49,11 +49,15 @@ h4 {
 
   .dashboard_grid{
     display: grid;
-    grid-template-rows: 25% 25% 25% 25% ;
-    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
     position: relative; 
     width: 100%;
     height: auto;
+  }
+
+  .grid_item{
+    height: 300px;
   }
 
 }
