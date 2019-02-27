@@ -12,20 +12,20 @@ class Navbar extends Component {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand">Bordfodbold Oversigt</a>
+      <a class="navbar-brand">Employees-App</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a>Denne uge</a></li>
+        <li class="active"><a>Start</a></li>
+        <li><a>Dashboard</a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Forrige uger <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Indstillinger <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="">Uge 2</a></li>
-            <li><a href="">Uge 3</a></li>
+            <li><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
           </ul>
         </li>
-        <li><a href="">Samlet Scoreboard</a></li>
-        <li><a href="">Regljusteringer</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href=""><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
