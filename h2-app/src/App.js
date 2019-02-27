@@ -19,7 +19,7 @@ class App extends Component {
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch('/employees/GET');
+    const response = await fetch('http://localhost:8080/api/employees/get/');
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -29,13 +29,13 @@ class App extends Component {
   };
 
   render() {
-    return (
+    return ([
+      <Navbar />,
       <div className="App">
-        <Navbar />
         <Dashboard />
         
       </div>
-    );
+    ]);
   }
 }
 

@@ -1,8 +1,16 @@
+/*
+###RestEasy Beta Version 2###
+This code has been shared on the 26th of February 2019 for use at Mercantec
+
+*/
+
 var events = require("events")
 var eventEmitter = new events.EventEmitter();
 var http = require("http")
 var url = require("url")
 var fs = require("fs")
+var mime = require("mime")
+var {parse} = require('querystring')
 
 var conn = 0
 
@@ -56,7 +64,6 @@ function handleObject(query, res) {
 
 function handleQueryObject(query, res) {
     if(conn) {
-        console.log("Query Object: " + JSON.stringify(query))
         conn.query(query.sql, function(err, result) {
             if(err) outputError(err, res)
             else res.end("Success")
@@ -67,7 +74,12 @@ function handleQueryObject(query, res) {
 }
 
 function handleFileObject(query, res) {
-    fs.readFile(query.filepath, function(err, data) {
+    fs.readFile(query.filepath, function (err, data) {        
+        if(err) {
+            outputError(err,res)
+            return
+        }
+        res.writeHead(200, { 'Content-Type': mime.getType('.\\' + query.filepath) });
         res.end(data)
     })
 }
@@ -82,7 +94,6 @@ function outputError(err, res) {
         error_number: err.errno,
         text: err.code
     }
-    console.log(JSON.stringify(oup), " ", 2)
     switch (err.errno) {
         case 1146:
             oup.text = "Error in Query Syntax, are you sure that the table exist?"
@@ -104,16 +115,35 @@ function outputError(err, res) {
 
 exports.start = function(port = 8080) {
     http.createServer(function(req, res) {
+        res.setHeader("Access-Control-Allow-Origin", "*")
+        res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+        req.method=="POST"?handlePost(req,res):handleGet(req,res)
+    }).listen(port)
+}
+
+function handleGet(req,res) {
+    var q = url.parse(req.url, true)
+    var pathname = q.pathname
+    var query = q.query
+    res.foundPage = false;
+    eventEmitter.emit('RestEasy', pathname, query, res)
+    if(!res.foundPage) {
+        res.writeHead(404, "Page not Found")
+        res.end()
+    }
+}
+//TODO some repeated code here
+function handlePost(req,res) {
+    getPostData(req, function(query) {
         var q = url.parse(req.url, true)
         var pathname = q.pathname
-        var query = q.query
         res.foundPage = false;
         eventEmitter.emit('RestEasy', pathname, query, res)
         if(!res.foundPage) {
             res.writeHead(404, "Page not Found")
             res.end()
         }
-    }).listen(port)
+    })
 }
 
 exports.dbSetup = function(host = "localhost", user = "root", password="", database=null) {
@@ -149,4 +179,18 @@ exports.file = function(path) {
         isFILEQuery:true,
         filepath:path
     }
+}
+
+exports.offerFile = function(path) {
+    exports.page("/"+path, ()=>exports.file(path))
+}
+
+function getPostData(req, callback) {
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        callback(parse(body))
+    });
 }
