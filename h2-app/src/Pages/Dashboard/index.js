@@ -4,12 +4,12 @@ import './dashboard.css';
 class Dashboard extends Component {
   render() {
     return (
-      <div className="dashboard_grid">
-        <div> Opret Ansatte </div>
-        <div> Juster Løn </div>
-        <div> Alle Ansatte </div>
-        <div> Afdelinger </div>
-      </div>
+      <ol className="dashboard_grid">
+        <div className="grid_item"> Opret Ansatte </div>
+        <div className="grid_item"> Juster Løn </div>
+        <div className="grid_item"> Alle Ansatte </div>
+        <div className="grid_item"> Afdelinger </div>
+      </ol>
     );
   }
 }

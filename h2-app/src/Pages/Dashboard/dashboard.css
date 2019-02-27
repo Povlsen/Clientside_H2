@@ -1,5 +1,16 @@
+ol{
+    overflow-x: hidden;
+}
+
 .dashboard_grid{
     display: grid;
-    columns:4;
-    grid-column-gap: 5%
+    grid-template-columns: 25% 25% 25% 25% ;
+    width: 100%;
+}
+
+.grid_item{
+    color: rgba(169, 169, 169, 1);
+    align-content: center;
+    background-color: rgb(132, 224, 255); 
+    border-radius: 5px;
 }
