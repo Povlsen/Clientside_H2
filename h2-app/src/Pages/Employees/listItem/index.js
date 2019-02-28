@@ -32,7 +32,7 @@ class Item extends Component {
   render() {
     var item = this.state.employee
     return (
-      <div className="EmployeeItem">
+      <div className="EmployeeItem" onClick={this.props.onClick.bind(this, item.Id)}>
         <div>{item.Id}</div>
         <div>{item.firstName}</div>
         <div>{item.lastName}</div>

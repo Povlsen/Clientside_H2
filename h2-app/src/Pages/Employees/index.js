@@ -10,9 +10,11 @@ class Employees extends Component {
   };
 
   componentDidMount() {
-    getEmployees().then(res => {
+    getEmployees({ limit: 1000 }).then(res => {
       this.setState({ employees: res })
     }).catch(err => console.log(err)) //TODO: better error handeling
+
+    console.log(this.props)
   }
 
 
@@ -22,9 +24,14 @@ class Employees extends Component {
         <h1>Employees</h1>
         <div className="list">
           <ReactList
-            itemRenderer={(index, key) => { return <Item item={this.state.employees[index]} key={key} /> }}
+            itemRenderer={(index, key) => { return <Item 
+              onClick={(Id) => this.props.history.push(`/employees/${Id}`)}
+              item={this.state.employees[index]} 
+              key={key}
+              /> 
+            }}
             length={this.state.employees.length}
-            type='uniform'
+            type='simple'
           />
         </div>
       </div>
