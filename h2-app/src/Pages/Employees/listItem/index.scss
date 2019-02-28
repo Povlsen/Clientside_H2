@@ -3,8 +3,16 @@
     display: inline-grid;
     grid-template-columns: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
     height: 30px;
-    border: black 1px solid;
+    border-bottom: black 1px solid;
+    cursor: default;
     >div {
         text-align: left;
+        color: var(--main-text-color);
+    }
+
+    &:hover {
+        border-color: var(--main-style-color);
+        background-color: var(--main-second-color);
+        cursor: pointer;
     }
 }

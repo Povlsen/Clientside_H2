@@ -14,10 +14,10 @@ var mime = require("mime")
 var conn = 0
 
 exports.page = function(path = "/", callback) {
-    eventEmitter.on('RestEasy', function(qPath, query, res) {
+    eventEmitter.on('RestEasy', async function(qPath, query, res) {
         if(path == qPath && !res.foundPage) {
             res.foundPage = true
-            var output = callback(query)
+            var output = await callback(query)
             switch (typeof(output)) {
                 case "number":
                     handleNumber(output,res)

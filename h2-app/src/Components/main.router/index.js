@@ -8,8 +8,8 @@ class Main extends Component {
       <main>
         <Switch>
           <Route exact path='/' component={this.props.Dashboard}/>
-          <Route exact path='/employees' component={Employees}/>
-
+          <Route exact path='/employees' render={router => <Employees {...router} />} />
+          <Route path='/employees/:Id' component={Employees}/>
         </Switch>
       </main>
     )
