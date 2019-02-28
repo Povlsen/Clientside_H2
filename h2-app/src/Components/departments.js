@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class EmployeeItem extends Component {
+class Departments extends Component {
   render() {
     return (
       <div className="Dashboard">
         <header className="App-header">
           <h2>
-            Employees
+                Departments;
           </h2>
         </header>
       </div>
@@ -15,4 +15,4 @@ class EmployeeItem extends Component {
   }
 }
 
-export default EmployeeItem;
+export default Departments;

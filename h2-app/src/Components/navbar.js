@@ -14,13 +14,14 @@ class Navbar extends Component {
             </button>
             <a class="navbar-brand">Employees-App</a>
           </div>
-          
+
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a>Start</a></li>
-              <li><a>Dashboard</a></li>
+              <li class="active"><a>Dashboard</a></li>
+              <li><a>Employees</a></li>
+              <li><a>Departments</a></li>
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Indstillinger <span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="">1</a></li>
                   <li><a href="">2</a></li>
