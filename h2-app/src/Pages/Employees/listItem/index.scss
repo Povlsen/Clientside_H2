@@ -1,0 +1,10 @@
+.EmployeeItem {
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
+    height: 30px;
+    border: black 1px solid;
+    >div {
+        text-align: left;
+    }
+}

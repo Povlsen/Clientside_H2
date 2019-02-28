@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Dashboard extends Component {
   render() {
@@ -21,8 +21,8 @@ class Dashboard extends Component {
           <img src="https://image.flaticon.com/icons/svg/50/50616.svg" alt="" />
         </div>
       </body>
-    );
+    )
   }
 }
-
-export default Dashboard;
+    
+export default Dashboard

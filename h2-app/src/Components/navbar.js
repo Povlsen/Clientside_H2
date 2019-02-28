@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
-class Navbar extends Component {
-  render() {
-    return (
+
+const Navbar = () => (
         <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -17,9 +19,8 @@ class Navbar extends Component {
 
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a>Dashboard</a></li>
-              <li><a>Employees</a></li>
-              <li><a>Departments</a></li>
+             <li><Link to='/'>Dashboard</Link></li>
+             <li><Link to='/employees'>Employees</Link></li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -35,9 +36,11 @@ class Navbar extends Component {
             </ul>
           </div>
         </div>
+
+        
       </nav>
+
+      
     );
-  }
-}
 
 export default Navbar;

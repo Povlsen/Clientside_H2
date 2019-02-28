@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Dashboard from './Pages/Dashboard';
-import Employees from './Pages/Employees'
+import Main from './Components/main.router/';
 import Navbar from './Components/navbar';
 import './App.css';
 
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <Dashboard />
+        <Main Dashboard={Dashboard} />
       </div>
     );
   }
