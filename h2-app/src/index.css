@@ -1,11 +1,22 @@
+/* Variabler */
 
+:root {
+  --main-bg-color: #e5e7e6;
+  --main-txt-color: #232528; 
+  --main-style-color: #16bcb9;
+  --main-second-color: #c8c8c8;
+  --main-third-color: #b3b3b3;
+}
+
+/*--------------------------------*/
 
 
 body {
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: 20px;
   font-family: 'Questrial', sans-serif; 
+  background-color: var(--main-bg-color);
 }
 
 h4 {
@@ -14,6 +25,13 @@ h4 {
 
 .navbar {
     border-radius: 0px;
+    
+}
+.navbar-inverse {
+  background-color: var(--main-txt-color);
+  border-color:var(--main-txt-color);
+  border-bottom: 4px solid;
+  border-bottom-color: var(--main-style-color);
 }
 
 .dashboard_grid{
@@ -30,7 +48,7 @@ h4 {
   margin: 5%;
   height: 450px;
   font-size: 5%;
-  background-color: rgb(132, 224, 255); 
+  background-color: var(--main-third-color);
   border-radius: 5px;
 }
 
@@ -40,7 +58,7 @@ h4 {
 
 @media only screen and (max-width: 600px) {
   body {
-    font-size: 11px;
+    font-size: 14px;
   }
 
   .dashboard_grid{
@@ -58,4 +76,6 @@ h4 {
 .btn btn-outline-primary {
   font-size: 12px;
 }
+
+
 
