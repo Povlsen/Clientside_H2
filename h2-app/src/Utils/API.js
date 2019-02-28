@@ -1,8 +1,8 @@
 const API_BASE_URL = 'http://localhost:8080/api/'
 
-function GET(url) {
-    const response = fetch(API_BASE_URL + url)
-    const body = JSON.parse(response.json())
+export async function GET(url) {
+    const response = await fetch(API_BASE_URL + url)
+    const body = response.json()
 
     if (response.status !== 200) {
       throw Error(body.message) 
@@ -10,8 +10,8 @@ function GET(url) {
     return body
 }
 
-function POST(url, data) {
-    const response = fetch(API_BASE_URL + url, {
+export async function POST(url, data) {
+    const response = await fetch(API_BASE_URL + url, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -20,7 +20,7 @@ function POST(url, data) {
         body: JSON.stringify(data)
     })
 
-    const body = JSON.parse(response.json())
+    const body = response.json()
 
     if (response.status !== 200) {
       throw Error(body.message) 

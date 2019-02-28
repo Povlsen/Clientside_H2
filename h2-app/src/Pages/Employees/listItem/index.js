@@ -1,23 +1,47 @@
-import React, { Component } from 'react';
-import './index.css';
+import React, { Component } from 'react'
+import { getDateString } from '../../../Utils/helpers'
+import './index.scss'
 
 class Item extends Component {
   state = {
-    data: null
+    employee: {
+      Id: 0,
+      birthDate: null,
+      firstName: "",
+      lastName: "",
+      gender: "",
+      hireDate: null
+    }
   }
 
   componentDidMount() {
-    console.log('item props', this.props)
+    var item = this.props.item
+    this.setState({
+      employee: {
+        Id: item.Id,
+        birthDate: getDateString(item.birthDate),
+        hireDate: getDateString(item.hireDate),
+        firstName: item.firstName,
+        lastName: item.lastName,
+        gender: item.gender
+      }
+    })
   }
 
 
   render() {
+    var item = this.state.employee
     return (
       <div className="EmployeeItem">
-        <p>mikkel</p>
+        <div>{item.Id}</div>
+        <div>{item.firstName}</div>
+        <div>{item.lastName}</div>
+        <div>{item.birthDate}</div>
+        <div>{item.gender}</div>
+        <div>{item.hireDate}</div>
       </div>
-    );
+    )
   }
 }
 
-export default Item;
+export default Item

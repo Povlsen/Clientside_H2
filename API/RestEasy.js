@@ -10,7 +10,6 @@ var http = require("http")
 var url = require("url")
 var fs = require("fs")
 var mime = require("mime")
-var {parse} = require('querystring')
 
 var conn = 0
 
@@ -194,7 +193,7 @@ function getPostData(req, callback) {
         try {
            body = JSON.parse(body)
         } catch {
-            // Doesn't need to do anything here, we just return watever was sent in...
+            // Doesn't need to do anything here, we just return watever was sent in
         }
 
         callback(body)

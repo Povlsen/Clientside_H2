@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactList from 'react-list'
 import Item from './listItem'
 import { getEmployees } from '../../Utils/Employees'
-import './index.css';
+import './index.scss'
 
 class Employees extends Component {
   state = {
@@ -10,9 +10,9 @@ class Employees extends Component {
   };
 
   componentDidMount() {
-    getEmployees().then(res => 
-        this.setState({ employees: [res[0]] })
-    ).catch(err => console.log(err)); //TODO: better error handeling
+    getEmployees().then(res => {
+      this.setState({ employees: res })
+    }).catch(err => console.log(err)) //TODO: better error handeling
   }
 
 
@@ -20,9 +20,9 @@ class Employees extends Component {
     return (
       <div className="Employees">
         <h1>Employees</h1>
-        <div style={{overflow: 'auto', maxHeight: 400}}>
+        <div className="list">
           <ReactList
-            itemRenderer={Item}
+            itemRenderer={(index, key) => { return <Item item={this.state.employees[index]} key={key} /> }}
             length={this.state.employees.length}
             type='uniform'
           />
@@ -32,4 +32,4 @@ class Employees extends Component {
   }
 }
 
-export default Employees;
+export default Employees
