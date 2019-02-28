@@ -62,7 +62,7 @@ rest.page("/api/employee/post/", async (q) => {
     return await db.query(getEmpQery)
 })
 
-rest.start() //Initialize the server
+rest.start(5000) //Initialize the server
 
 
 async function getNextId(tabel, col) {
