@@ -14,14 +14,16 @@ const Navbar = () => (
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand">Employees-App</a>
+            <a class="navbar-brand"><Link to='/'>Employees-app</Link></a>
           </div>
 
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-             <li><Link to='/'>Dashboard</Link></li>
+             <li class="active"><Link to='/'>Dashboard</Link></li>
              <li><Link to='/employees'>Employees</Link></li>
-              <li class="dropdown">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="">1</a></li>
@@ -29,10 +31,6 @@ const Navbar = () => (
                   <li><a href="">3</a></li>
                 </ul>
               </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href=""><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-              <li><a href=""><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
           </div>
         </div>
