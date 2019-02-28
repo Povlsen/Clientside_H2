@@ -15,4 +15,4 @@ rest.dbSetup(       //Must be called if you want to use mysql calls
             return baseSQL
     })
 
-    rest.start() //Initialize the server
+    rest.start(8081) //Initialize the server
