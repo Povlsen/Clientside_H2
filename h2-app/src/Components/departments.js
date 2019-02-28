@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
 
 class Departments extends Component {
   render() {
     return (
-      <div className="Dashboard">
+      <div className="Departments">
         <header className="App-header">
           <h2>
                 Departments;

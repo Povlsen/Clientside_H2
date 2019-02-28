@@ -11,7 +11,7 @@ class EmployeeItem extends Component {
           </h2>
         </header>
       </div>
-    );
+    )
   }
 }
 
