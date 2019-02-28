@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-list": "^0.8.11",
     "react-scripts": "2.1.5"
   },
   "scripts": {

@@ -186,11 +186,17 @@ exports.offerFile = function(path) {
 }
 
 function getPostData(req, callback) {
-    let body = '';
+    var body = '';
     req.on('data', chunk => {
         body += chunk.toString(); // convert Buffer to string
     });
     req.on('end', () => {
-        callback(parse(body))
+        try {
+           body = JSON.parse(body)
+        } catch {
+            // Doesn't need to do anything here, we just return watever was sent in...
+        }
+
+        callback(body)
     });
 }
