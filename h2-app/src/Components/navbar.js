@@ -6,7 +6,7 @@ class Navbar extends Component {
 
   render() {
     var curPath = this.props.location.pathname
-    
+    console.log(this.props)
     return (
         <nav className="navbar navbar-inverse">
         <div className="container-fluid">
@@ -24,7 +24,7 @@ class Navbar extends Component {
              <li className={curPath === "/" ? "active" : ""}><Link to='/'>Dashboard</Link></li>
              <li className={curPath === "/employees" ? "active" : ""}><Link to='/employees'>Employees</Link></li>
              <li className={curPath === "/departments" ? "active" : ""}><Link to='/departments'>Departments</Link></li>
-             <li className={curPath === "/employees/0" ? "active" : ""}><Link to='/employees/0'>Add Employee</Link></li>
+             <li className={curPath === "/employees/" ? "active" : ""}><Link to='/employees/0'>Add Employee</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">

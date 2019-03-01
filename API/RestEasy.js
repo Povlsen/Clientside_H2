@@ -17,7 +17,7 @@ exports.page = function(path = "/", callback) {
     eventEmitter.on('RestEasy', async function(qPath, query, res) {
         if(path == qPath && !res.foundPage) {
             res.foundPage = true
-            var output = await callback(query)
+            var output = await callback(query, res)
             switch (typeof(output)) {
                 case "number":
                     handleNumber(output,res)

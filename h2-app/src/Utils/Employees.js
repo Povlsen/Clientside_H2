@@ -12,3 +12,10 @@ export async function postEmployee(data) {
     return POST('employee/post/', data)
 }
 
+export async function postEmployeeSalary(data) {
+    return POST('employee/salary/post/', data)
+}
+
+export async function postEmployeeTitle(data) {
+    return POST('employee/title/post/', data)
+}
