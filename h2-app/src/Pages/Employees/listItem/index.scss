@@ -2,12 +2,13 @@
     width: 100%;
     display: inline-grid;
     grid-template-columns: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
-    height: 30px;
-    border-bottom: black 1px solid;
+    border-bottom: var(--main-third-color) 1px solid;
+    padding-top: 10px;
     cursor: default;
     >div {
         text-align: left;
         color: var(--main-text-color);
+        
     }
 
     &:hover {
@@ -23,5 +24,8 @@
     }
     .list_item_id {
         display:none;
+    }
+    .list_item_hire {
+        text-align: right;
     }
 }

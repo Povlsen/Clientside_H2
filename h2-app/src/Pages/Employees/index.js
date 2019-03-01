@@ -24,12 +24,12 @@ class Employees extends Component {
         <h1>Employees</h1>
         <div className="listTitle">
           <div className="EmployeeItem">
-            <div className="list_item_id">ID</div>
+            <div className="list_item_id">#</div>
             <div>Firstname</div>
             <div>Lastname</div>
             <div>Birth</div>
             <div>Gender</div>
-            <div>Hire</div>
+            <div className="list_item_hire">Hire</div>
           </div>
         </div>
         <div className="list">

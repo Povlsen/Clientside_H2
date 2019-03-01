@@ -38,10 +38,11 @@ class Item extends Component {
         <div>{item.lastName}</div>
         <div>{item.birthDate}</div>
         <div>{item.gender}</div>
-        <div>{item.hireDate}</div>
+        <div className="list_item_hire">{item.hireDate}</div>
       </div>
     )
   }
 }
 
 export default Item
+
