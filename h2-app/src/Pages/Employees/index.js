@@ -22,6 +22,16 @@ class Employees extends Component {
     return (
       <div className="Employees">
         <h1>Employees</h1>
+        <div className="listTitle">
+          <div className="EmployeeItem">
+            <div className="list_item_id">ID</div>
+            <div>Firstname</div>
+            <div>Lastname</div>
+            <div>Birth</div>
+            <div>Gender</div>
+            <div>Hire</div>
+          </div>
+        </div>
         <div className="list">
           <ReactList
             itemRenderer={(index, key) => { return <Item 

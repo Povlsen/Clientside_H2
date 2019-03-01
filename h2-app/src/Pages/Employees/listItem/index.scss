@@ -16,3 +16,12 @@
         cursor: pointer;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .EmployeeItem {
+        grid-template-columns: 24.9% 24.9% 21.6% 6.6% 21.6%;
+    }
+    .list_item_id {
+        display:none;
+    }
+}

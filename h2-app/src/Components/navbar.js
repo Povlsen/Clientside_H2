@@ -23,6 +23,7 @@ class Navbar extends Component {
             <ul className="nav navbar-nav">
              <li className={curPath === "/" ? "active" : ""}><Link to='/'>Dashboard</Link></li>
              <li className={curPath === "/employees" ? "active" : ""}><Link to='/employees'>Employees</Link></li>
+             <li className={curPath === "/departments" ? "active" : ""}><Link to='/departments'>Departments</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
