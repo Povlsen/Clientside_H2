@@ -45,82 +45,11 @@ h4 {
   color: var(--main-second-color);
 }
 
-.dashboard_grid{
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25% ;
-  position: fixed;
-  width: 100%;
-  height: auto;
-}
-
-.grid_item{
-  align-content: center;
-  margin: 5%;
-  display: grid;
-  grid-template-rows: 15% 85%;
-  text-align: center;
-  height: 450px;
-  background-color: var(--main-second-color);
-  border-radius: 10px;
-
-  h3{
-    font-size: 150%;
-    height: 100%;
-    width: 100%;
-    top: 50%;
-    position: relative;
-  }
-
-  & :after {
-    background: none repeat scroll 0 0 transparent;
-    content: "";
-    display: block;
-    height: 2px;
-    right: 0;
-    position: absolute;
-    background: var(--main-style-color);
-    transition: width 1s ease 0s, right 0.5s ease 0s;
-    width: 0;
-  }
-
-  & :hover:after{
-    width: 100%;
-    right: 0;
-    left: 0;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    padding: 25%;
-    padding-top: 0%;
-    align-content: center;
-  }
-}
-
-@media only screen and (min-height: 750px){
-  .grid_item{
-    height: 650px;
-  }
-}
 
 @media only screen and (max-width: 600px) {
   body {
     font-size: 14px;
   }
-
-  .dashboard_grid{
-    display: grid;
-    grid-template-rows: 50% 50%;
-    grid-template-columns: 50% 50%;
-    position: relative;
-  }
-
-  .grid_item{
-    height: 300px;
-  }
-
-
 }
 .btn btn-outline-primary {
   font-size: 12px;
