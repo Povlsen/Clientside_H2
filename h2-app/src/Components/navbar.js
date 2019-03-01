@@ -6,7 +6,6 @@ class Navbar extends Component {
 
   render() {
     var curPath = this.props.location.pathname
-    console.log(this.props)
     return (
         <nav className="navbar navbar-inverse">
         <div className="container-fluid">
@@ -16,7 +15,7 @@ class Navbar extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand"><Link to='/'>Employees-app</Link></a>
+            <a className="navbar-brand"><Link to='/'>Employees-app</Link></a>
           </div>
 
           <div className="collapse navbar-collapse" id="myNavbar">

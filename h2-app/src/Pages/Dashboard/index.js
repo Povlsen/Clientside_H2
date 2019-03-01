@@ -3,7 +3,6 @@ import './index.scss';
 
 class Dashboard extends Component {
   render() {
-    console.log('dash', this.props)
     return (
       <body className="dashboard_grid">        
         <div className="grid_item" onClick={() => this.props.history.push(`/employees/0`)}> 

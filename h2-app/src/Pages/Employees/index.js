@@ -13,8 +13,6 @@ class Employees extends Component {
     getEmployees({ limit: 1000 }).then(res => {
       this.setState({ employees: res })
     }).catch(err => console.log(err)) //TODO: better error handeling
-
-    console.log(this.props)
   }
 
 
