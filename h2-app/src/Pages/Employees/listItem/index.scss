@@ -16,3 +16,9 @@
         cursor: pointer;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .EmployeeItem {
+        grid-template-columns: 16.6% 16.6% 16.6% 21.6% 6.6% 21.6%;
+    }
+}

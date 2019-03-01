@@ -7,3 +7,12 @@
         max-height: 650px;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    body {
+      font-size: 14px;
+    }
+    .Employees {
+        width: 95%;
+    }
+}
