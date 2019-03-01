@@ -98,10 +98,11 @@ h4 {
   }
 }
 
-
-
-
-
+@media only screen and (min-height: 750px){
+  .grid_item{
+    height: 650px;
+  }
+}
 
 @media only screen and (max-width: 600px) {
   body {
