@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Employees from '../../Pages/Employees';
-<<<<<<< HEAD
 import Navbar from '../navbar';
-=======
 import Departments from '../../Pages/Departments';
 import Adjust_Employee from '../../Pages/Adjust Employee';
->>>>>>> DEV
 
 class Main extends Component {
   render() {
