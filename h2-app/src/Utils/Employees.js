@@ -7,3 +7,7 @@ export async function getEmployees(data = '') {
 export async function getEmployee(Id) {
     return GET(`employee/get/?Id=${Id}`)
 }
+
+export async function postEmployee(data) {
+    return POST('employee/post/', data)
+}
