@@ -33,13 +33,13 @@ rest.page("/api/employees/get/", async (q) => {
 })
 
 rest.page("/api/employee/get/", async (q) => {
-    let getBaseEmp = empBaseSelect.replace('[where]', `WHERE emp_no = ${q.id}`)      
+    let getBaseEmp = empBaseSelect.replace('[where]', `WHERE emp_no = ${q.Id}`)      
     var employee = (await db.query(getBaseEmp))[0] //only need one
 
-    employee.departments = await db.query(empCurDept.replace('[empId]', q.id))
-    employee.deptManager = await db.query(empCurMan.replace('[empId]', q.id))
-    employee.titels = await db.query(empCurTitel.replace('[empId]', q.id))
-    employee.salary = await db.query(empCurSal.replace('[empId]', q.id))
+    employee.departments = await db.query(empCurDept.replace('[empId]', q.Id))
+    employee.deptManager = await db.query(empCurMan.replace('[empId]', q.Id))
+    employee.titels = await db.query(empCurTitel.replace('[empId]', q.Id))
+    employee.salary = await db.query(empCurSal.replace('[empId]', q.Id))
 
     return employee
 })

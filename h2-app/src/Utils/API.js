@@ -3,7 +3,7 @@ const API_BASE_URL = 'http://localhost:5000/api/'
 export async function GET(url) {
     const response = await fetch(API_BASE_URL + url)
     const body = response.json()
-
+    
     if (response.status !== 200) {
       throw Error(body.message) 
     }
