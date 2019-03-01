@@ -10,7 +10,7 @@
   
 /*--------------------------------*/
 
-.dashboard_grid{
+.dashboard_grid {
     display: grid;
     grid-template-columns: 25% 25% 25% 25% ;
     position: fixed;
@@ -18,7 +18,7 @@
     height: auto;
   }
   
-  .grid_item{
+  .grid_item {
     align-content: center;
     margin: 5%;
     display: grid;
@@ -28,7 +28,7 @@
     background-color: var(--main-second-color);
     border-radius: 10px;
   
-    h3{
+    h3 {
       font-size: 150%;
       height: 100%;
       width: 100%;
@@ -36,7 +36,7 @@
       position: relative;
     }
   
-    & :after {
+    .theamAnimation:after {
       background: none repeat scroll 0 0 transparent;
       content: "";
       display: block;
@@ -48,10 +48,14 @@
       width: 0;
     }
   
-    & :hover:after{
+    &:hover .theamAnimation:after {
       width: 100%;
       right: 0;
       left: 0;
+    }
+
+    &:hover:not(.inactive) {
+      cursor: pointer;
     }
   
     img {
@@ -64,20 +68,20 @@
   }
   
 @media only screen and (min-height: 815px){
-    .grid_item{
-    height: 690px;
+    .grid_item {
+      height: 690px;
     }
 
 @media only screen and (max-width: 600px) {
-    .dashboard_grid{
-        display: grid;
-        grid-template-rows: 50% 50%;
-        grid-template-columns: 50% 50%;
-        position: relative;
+    .dashboard_grid {
+      display: grid;
+      grid-template-rows: 50% 50%;
+      grid-template-columns: 50% 50%;
+      position: relative;
     }
  
     .grid_item{
-        height: 300px;
+      height: 300px;
     } 
 }  
 }
