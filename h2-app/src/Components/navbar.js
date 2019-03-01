@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 
+class Navbar extends Component {
 
-const Navbar = () => (
+  render() {
+    var curPath = this.props.location.pathname
+    
+    return (
         <nav className="navbar navbar-inverse">
         <div className="container-fluid">
           <div className="navbar-header">
@@ -17,15 +19,15 @@ const Navbar = () => (
             <a class="navbar-brand"><Link to='/'>Employees-app</Link></a>
           </div>
 
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-             <li class="active"><Link to='/'>Dashboard</Link></li>
-             <li><Link to='/employees'>Employees</Link></li>
+          <div className="collapse navbar-collapse" id="myNavbar">
+            <ul className="nav navbar-nav">
+             <li className={curPath === "/" ? "active" : ""}><Link to='/'>Dashboard</Link></li>
+             <li className={curPath === "/employees" ? "active" : ""}><Link to='/employees'>Employees</Link></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+            <ul className="nav navbar-nav navbar-right">
+            <li className="dropdown">
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Settings <span class="caret"></span></a>
+                <ul className="dropdown-menu">
                   <li><a href="">1</a></li>
                   <li><a href="">2</a></li>
                   <li><a href="">3</a></li>
@@ -36,6 +38,8 @@ const Navbar = () => (
         </div>
         
       </nav>
-    );
+    )
+  }
+}
 
-export default Navbar;
+export default Navbar

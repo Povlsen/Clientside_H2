@@ -11,3 +11,4 @@ export async function getEmployee(Id) {
 export async function postEmployee(data) {
     return POST('employee/post/', data)
 }
+
