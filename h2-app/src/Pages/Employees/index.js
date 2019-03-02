@@ -3,7 +3,6 @@ import ReactList from 'react-list'
 import Item from './listItem'
 import { getEmployees } from '../../Utils/Employees'
 import './index.scss'
-import { runInThisContext } from 'vm';
 
 class Employees extends Component {
   constructor (props) {
@@ -15,9 +14,12 @@ class Employees extends Component {
         limit: 100, 
         seach: null
       },
-      listUpdated: false
+      listUpdated: false,
+      listItemHeight: 39
     }
 
+    this.listRef = React.createRef()
+    this.listTitleRef = React.createRef() 
     this.setHeight = this.setHeight.bind(this)
     this.seach = this.seach.bind(this)
     this.updateEmployees = this.updateEmployees.bind(this)
@@ -39,14 +41,26 @@ class Employees extends Component {
 
   setHeight() {
     try {
-      var height = (window.innerHeight - document.getElementById('empTitle').getBoundingClientRect().bottom)
+      var height = (window.innerHeight - this.listTitleRef.current.getBoundingClientRect().bottom)
       if (this.state.availableHeight !== height) {
         this.setState({
           ...this.state,
           availableHeight: height
         })
       }
-    } catch {}    
+    } catch {}
+
+    try {
+      var itemHeight = this.listRef.current.childNodes[0].childNodes[0].offsetHeight
+      if (!isNaN(itemHeight)) {
+        if (this.state.listItemHeight !== itemHeight) {
+          this.setState({
+            ...this.state,
+            listItemHeight: itemHeight
+          })
+        }
+      }
+    } catch {}
   }
 
   updateEmployees(newList) {
@@ -108,8 +122,7 @@ class Employees extends Component {
       }
       var top = params.target.scrollTop
       var empCount = this.state.employees.length
-
-      if (((empCount * 39) - (top+this.state.availableHeight)) === 0) {
+      if (((empCount * this.state.listItemHeight) - (top+this.state.availableHeight)) === 0) {
         //User scrolled to the bottom
         this.loadMore()
       } else if (top === 0) {
@@ -129,7 +142,7 @@ class Employees extends Component {
       <div className="Employees">
         <h1>Employees</h1>
         <input type="text" className="seachBox" placeholder="Seach" onChange={textChanged} onBlur={this.seach} />
-        <div id="empTitle" className="listTitle">
+        <div className="listTitle" ref={this.listTitleRef}>
           <div className="EmployeeItem">
             <div className="list_item_id">#</div>
             <div>Firstname</div>
@@ -139,7 +152,7 @@ class Employees extends Component {
             <div className="list_item_hire">Hire</div>
           </div>
         </div>
-        <div className="list" style={{'height': this.state.availableHeight}} onScroll={onScroll}>
+        <div className="list" style={{'height': this.state.availableHeight}} onScroll={onScroll} ref={this.listRef}>
           <ReactList
             itemRenderer={(index, key) => { return <Item 
               onClick={(Id) => this.props.history.push(`/employees/${Id}`)}
@@ -151,9 +164,6 @@ class Employees extends Component {
             type='simple'
           />
         </div>
-        <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-        </button>
       </div>
     );
   }

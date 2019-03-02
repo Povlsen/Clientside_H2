@@ -14,24 +14,21 @@
     .seachBox {
         float: right;
     }
-}
 
-.listTitle {
-    border-bottom: 10px solid;
-    border-bottom:  var(--main-style-color);
-    color: var(--main-style-color);
-    font-weight: bolder;
+    .listTitle {
+        border-bottom: 10px solid;
+        border-bottom:  var(--main-style-color);
+        color: var(--main-style-color);
+        font-weight: bolder;
+    }
 }
 
 @media only screen and (max-width: 600px) {
-    body {
-      font-size: 14px;
-    }
     .Employees {
         width: 95%;
-    }
-    .list_item_hire {
-        text-align: right;
-    }
 
+        .list_item_hire {
+            text-align: right;
+        }
+    }
 }

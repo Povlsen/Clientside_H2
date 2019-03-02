@@ -1,15 +1,3 @@
-/* Variabler */
-
-:root {
-    --main-bg-color: #e5e7e6;
-    --main-txt-color: #232528; 
-    --main-style-color: #16bcb9;
-    --main-second-color: #c8c8c8;
-    --main-third-color: #b3b3b3;
-  }
-  
-/*--------------------------------*/
-
 .dashboard_grid {
     display: grid;
     grid-template-columns: 25% 25% 25% 25% ;
@@ -83,5 +71,5 @@
     .grid_item{
       height: 300px;
     } 
-}  
+  }  
 }
