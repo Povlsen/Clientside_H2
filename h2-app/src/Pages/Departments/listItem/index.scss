@@ -1,0 +1,26 @@
+.DepartmentItem {
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: 50% 50%;
+    border-bottom: var(--main-third-color) 1px solid;
+    padding-top: 10px;
+    cursor: default;
+    >div {
+        text-align: left;
+        color: var(--main-text-color);
+        
+    }
+
+    &:hover {
+        border-color: var(--main-style-color);
+        background-color: var(--main-second-color);
+        cursor: pointer;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .DepartmentItem {
+        grid-template-columns: 50% 50%;
+    }
+    
+}

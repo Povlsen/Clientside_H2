@@ -1,45 +1,31 @@
 import React, { Component } from 'react'
-import { getDateString } from '../../../Utils/helpers'
 import './index.scss'
 
 class Item extends Component {
   state = {
-    employee: {
+    department: {
       Id: 0,
-      birthDate: null,
-      firstName: "",
-      lastName: "",
-      gender: "",
-      hireDate: null
+      name: null
     }
   }
 
   componentDidMount() {
     var item = this.props.item
     this.setState({
-      employee: {
+      department: {
         Id: item.Id,
-        birthDate: getDateString(item.birthDate),
-        hireDate: getDateString(item.hireDate),
-        firstName: item.firstName,
-        lastName: item.lastName,
-        gender: item.gender
+        name: item.name
       }
     })
   }
 
 
   render() {
-    var item = this.state.employee
+    var item = this.state.department
     return (
-      <div className="EmployeeItem" onClick={this.props.onClick.bind(this, item.Id)}>
-        <div className="list_item_id">{item.Id}</div>
-        <div>{item.firstName}</div>
-        <div>{item.lastName}</div>
-        <div>{item.birthDate}</div>
-        <div>{item.gender}</div>
-        <div className="list_item_hire">{item.hireDate}</div>
-      </div>
+        <div className="menu-item" onClick={this.props.onClick.bind(this, item.Id)}>
+            <div className="menu_item_name">{item.name}</div>
+        </div>
     )
   }
 }

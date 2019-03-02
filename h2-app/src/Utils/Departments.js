@@ -1,7 +1,7 @@
 import { GET, POST } from './API'
 
 export async function getDepartments() {
-    return Get('departments/get/')
+    return GET('departments/get/')
 }
 
 export async function getDepartment(Id) {

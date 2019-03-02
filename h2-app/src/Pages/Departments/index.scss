@@ -1,4 +1,52 @@
 .Departments {
     width: 80%;
     margin: 0 auto;
+    height: 100%;
+    .list {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 650px;
+    }
+
+    >h1 {
+        display: inline;
+    }
+    .seachBox {
+        float: right;
+    }
+
+    
+
+    .menu {
+        margin-top: 5%;
+
+        .menu-item {
+            margin-right: 20px;
+            margin-left: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid var(--main-style-color);
+            border-radius: 5px;
+            display: inline-block;
+
+            -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+            page-break-inside: avoid; /* Firefox */
+            break-inside: avoid; /* IE 10+ */
+        }
+        .menu-item:hover {
+            background: var(--main-bg-color);
+            color: var(--main-style-color);
+            cursor: pointer;
+        }
+    }
+
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    body {
+      font-size: 14px;
+    }
+
 }
