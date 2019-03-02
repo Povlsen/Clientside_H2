@@ -24,12 +24,12 @@ const deptManHistory = "SELECT m.dept_no AS departmentId, e.emp_no AS employeeId
 //#region Employee(s) API's
 rest.page("/api/employees/get/", async (q, res) => {
     try {
-        let baseSQL =  empBaseSelect + " ORDER BY emp_no ASC LIMIT [limitCount]"
+        let baseSQL =  empBaseSelect + ` ORDER BY emp_no ${q.isTop === true ? 'DESC' : 'ASC'} LIMIT [limitCount]`
 
         var where = ''
         var isWhereAdded = false
         if (q.lastId !== undefined && Number.isNaN(q.lastId) === false) {
-            where += `WHERE emp_no > ${q.lastId} `
+            where += `WHERE emp_no ${q.isTop === true ? '<' : '>'} ${q.lastId} `
             isWhereAdded = true
         }
         
@@ -49,7 +49,11 @@ rest.page("/api/employees/get/", async (q, res) => {
         
         baseSQL = baseSQL.replace('[where]', where)
         baseSQL = baseSQL.replace('[limitCount]', (q.limit !== undefined && Number.isNaN(q.limit) === false) ? q.limit : '50')
-        return db.query(baseSQL)
+        
+        var result = await db.query(baseSQL)
+        if (q.isTop === true) result.reverse()
+
+        return result
     } catch {
         res.writeHead(400, "Bad Request")
         return
