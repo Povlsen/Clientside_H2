@@ -26,9 +26,8 @@
 @media only screen and (max-width: 600px) {
     .Employees {
         width: 95%;
-
-        .list_item_hire {
-            text-align: right;
-        }
+    }
+    .list_item_hire {
+        text-align: right !important;
     }
 }
