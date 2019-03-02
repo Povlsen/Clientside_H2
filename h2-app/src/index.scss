@@ -56,6 +56,16 @@ h4 {
   body {
     font-size: 14px;
   }
+  .dashboard_grid {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
+    position: relative;
+  }
+
+  .grid_item{
+    height: 300px;
+  } 
 }
 .btn btn-outline-primary {
   font-size: 12px;
