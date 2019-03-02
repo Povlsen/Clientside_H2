@@ -1,6 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
+import './index.scss';
 
 
 class Salary extends React.Component {
@@ -10,7 +11,7 @@ class Salary extends React.Component {
       datasets: [
         {
           label: "Emils test data",
-          fill: false,
+          fill: true,
           lineTension: 0.1,
           backgroundColor: "rgba(22,188,185,0.4)",
           borderColor: "rgba(22,188,185,1)",
