@@ -19,7 +19,7 @@ class Employees extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.setHeight)
+    window.removeEventListener('resize', this.setHeight.bind(this))
   }
 
   componentDidUpdate() {
@@ -27,13 +27,15 @@ class Employees extends Component {
   }
 
   setHeight() {
-    var height = (window.innerHeight - document.getElementById('empTitle').getBoundingClientRect().bottom)
-    if (this.state.availableHeight !== height) {
-      this.setState({
-        ...this.state,
-        availableHeight: height
-      })
-    }
+    try {
+      var height = (window.innerHeight - document.getElementById('empTitle').getBoundingClientRect().bottom)
+      if (this.state.availableHeight !== height) {
+        this.setState({
+          ...this.state,
+          availableHeight: height
+        })
+      }
+    } catch {}    
   }
 
   render() {
