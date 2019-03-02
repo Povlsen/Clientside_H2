@@ -29,10 +29,12 @@ class Employees extends Component {
   componentDidMount() {
     this.seach()
     window.addEventListener('resize', this.setHeight.bind(this))
+    document.addEventListener('navResize', this.setHeight.bind(this))
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.setHeight.bind(this))
+    document.removeEventListener('navResize', this.setHeight.bind(this))
   }
 
   componentDidUpdate() {

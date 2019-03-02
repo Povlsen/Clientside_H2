@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom';
 
 
 class Navbar extends Component {
+  state = {
+    onMenueToggleEvent: new Event('navResize')
+  }
 
   render() {
     var curPath = this.props.location.pathname
+    const onNavToggle = () => {
+      setTimeout(() => document.dispatchEvent(this.state.onMenueToggleEvent), 500)      
+    }
     return (
         <nav className="navbar navbar-inverse">
         <div className="container-fluid">
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" onClick={onNavToggle} >
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>                        
@@ -36,8 +42,7 @@ class Navbar extends Component {
               </li>
             </ul>
           </div>
-        </div>
-        
+        </div>        
       </nav>
     )
   }
