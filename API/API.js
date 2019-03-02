@@ -25,7 +25,29 @@ const deptManHistory = "SELECT m.dept_no AS departmentId, e.emp_no AS employeeId
 rest.page("/api/employees/get/", async (q, res) => {
     try {
         let baseSQL =  empBaseSelect + " ORDER BY emp_no ASC LIMIT [limitCount]"
-        baseSQL = baseSQL.replace('[where]', (q.lastId !== undefined && Number.isNaN(q.lastId) === false) ? ('WHERE emp_no > ' + q.lastId) : '')
+
+        var where = ''
+        var isWhereAdded = false
+        if (q.lastId !== undefined && Number.isNaN(q.lastId) === false) {
+            where += `WHERE emp_no > ${q.lastId} `
+            isWhereAdded = true
+        }
+        
+        if (q.seach !== undefined && q.seach !== null) {
+            if (q.seach.match(/^ *$/) === null) {
+                var seachText = q.seach.replace(' ', '|')
+                if (!isWhereAdded) where += `WHERE (emp_no REGEXP '${seachText}' `
+                else where += `AND (emp_no REGEXP '${seachText}' `
+    
+                where += `OR birth_date REGEXP '${seachText}' `
+                where += `OR first_name REGEXP '${seachText}' `
+                where += `OR last_name REGEXP '${seachText}' `
+                where += `OR gender REGEXP '${seachText}' `
+                where += `OR hire_date REGEXP '${seachText}') `
+            }
+        }
+        
+        baseSQL = baseSQL.replace('[where]', where)
         baseSQL = baseSQL.replace('[limitCount]', (q.limit !== undefined && Number.isNaN(q.limit) === false) ? q.limit : '50')
         return db.query(baseSQL)
     } catch {
