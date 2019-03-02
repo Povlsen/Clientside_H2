@@ -1,20 +1,8 @@
-.Employees {
+.employees {
     width: 80%;
     margin: 0 auto;
     height: 100%;
-    .list {
-        overflow-x: hidden;
-        overflow-y: auto;
-        height: 650px;
-    }
-
-    >h1 {
-        display: inline;
-    }
-    .seachBox {
-        float: right;
-    }
-
+    
     .listTitle {
         border-bottom: 10px solid;
         border-bottom:  var(--main-style-color);
@@ -24,7 +12,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .Employees {
+    .employees {
         width: 95%;
     }
     .list_item_hire {

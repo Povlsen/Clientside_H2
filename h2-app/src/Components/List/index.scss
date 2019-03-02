@@ -1,0 +1,14 @@
+.list {
+    .list {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 650px;
+    }
+
+    >h1 {
+        display: inline;
+    }
+    .seachBox {
+        float: right;
+    }
+}
