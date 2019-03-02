@@ -4,6 +4,7 @@ import Employees from '../../Pages/Employees';
 import Navbar from '../navbar';
 import Departments from '../../Pages/Departments';
 import Adjust_Employee from '../../Pages/Adjust Employee';
+import Salary from '../../Pages/Salary';
 
 class Main extends Component {
   render() {
@@ -15,6 +16,7 @@ class Main extends Component {
           <Route exact path='/employees' render={router => <Employees {...router} />} />
           <Route path='/employees/:Id' component={Adjust_Employee}/>
           <Route path='/departments' render={router =><Departments {...router} />} />
+          <Route path='/salary' render={router =><Salary {...router} />} />
         </Switch>
       </main>
     ])

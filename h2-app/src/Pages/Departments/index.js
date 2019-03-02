@@ -3,6 +3,7 @@ import ReactList from 'react-list'
 import Item from './listItem'
 import { getDepartments } from '../../Utils/Departments'
 import './index.scss'
+import DepartmentData from './departmentData'
 
 class Departments extends Component {
   state = {
@@ -90,6 +91,8 @@ class Departments extends Component {
               type='simple'
             />
           </div>
+
+          <DepartmentData></DepartmentData>
       {/*    
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>

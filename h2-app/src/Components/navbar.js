@@ -27,7 +27,7 @@ class Navbar extends Component {
             </ul>
             <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="">Settings <span class="caret"></span></a>
+                <a className="dropdown-toggle" data-toggle="dropdown" href="">Settings <span className="caret"></span></a>
                 <ul className="dropdown-menu">
                   <li><a href="">1</a></li>
                   <li><a href="">2</a></li>
