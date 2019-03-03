@@ -177,7 +177,7 @@ class List extends Component {
     return (
       <div className="list">
         {this.props.renderTitle()}
-        {this.props.seacch === true && <input type="text" className="seachBox" placeholder="Seach" onChange={textChanged} onBlur={this.seach} />}
+        {this.props.seach === true && <input type="text" className="seachBox" placeholder="Seach" onChange={textChanged} onBlur={this.seach} />}
         <div className="listTitle" ref={this.listTitleRef}>
             {this.props.renderListTitle()}
         </div>
