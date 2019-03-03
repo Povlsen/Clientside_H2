@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { getDateString } from '../../../Utils/helpers'
 import './index.scss'
 
-class SalaryItem extends Component {
+class TitleItem extends Component {
 constructor(props) {
     super(props)
     this.state = {
@@ -10,7 +10,7 @@ constructor(props) {
           employeeId: 0,
           from: '',
           to: '',
-          salary: 0
+          title: ''
         },
         edit: false
     }
@@ -39,6 +39,7 @@ constructor(props) {
         item: {
           ...item,
           originalFrom: item.isAdd ? '' : getDateString(item.originalFrom),
+          originalTitle: item.isAdd ? '' : item.originalTitle,
           from: getDateString(item.from),
           to: getDateString(item.to)
         }
@@ -69,10 +70,10 @@ constructor(props) {
 
     const renderStatic = () => {
         return (
-          <div className="salaryItem" onClick={setAsEdit}>
+          <div className="titleItem" onClick={setAsEdit}>
             <div>{item.from}</div>
             <div>{item.to}</div>
-            <div>{item.salary}</div>
+            <div>{item.title}</div>
           </div>
         )
     }
@@ -88,10 +89,10 @@ constructor(props) {
     const renderPost = () => {
         if (this.state.edit) {
             return (
-                <div className="edit salaryItem">
+                <div className="edit titleItem">
                   <input type='date' name='from' className="form-input" value={item.from} onChange={this.onChange} />
                   <input type='date' name='to' className="form-input" value={item.to} onChange={this.onChange} />
-                  <input type='number' name='salary' className="form-input" value={item.salary} onChange={this.onChange} />
+                  <input type='text' name='title' className="form-input" value={item.title} onChange={this.onChange} />
                   <div className="update-btn-group">
                     <button className="main-theam-bth" onClick={onSave}>{item.isAdd ? 'Add' : 'Update'}</button>
                     <button className="main-theam-bth" onClick={onCancel}>Cancel</button>
@@ -100,7 +101,7 @@ constructor(props) {
               )
         } else {
             return (
-                <div className="edit salaryItem">
+                <div className="edit titleItem">
                   <button className="main-theam-bth new-btn" onClick={setAsEdit}>New</button>
                 </div>
             )
@@ -115,4 +116,4 @@ constructor(props) {
   }
 }
 
-export default SalaryItem
+export default TitleItem

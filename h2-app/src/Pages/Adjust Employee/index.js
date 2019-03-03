@@ -3,6 +3,8 @@ import { getEmployee, postEmployee, postEmployeeSalary, postEmployeeTitle } from
 import { postDepartmentEmployee, postDepartmentManager } from '../../Utils/Departments'
 import List from '../../Components/List'
 import SalaryItem from './SalaryItem'
+import TitleItem from './TitleItem'
+import DeptItem from './DeptItem'
 import { getDateString, getYesterday } from '../../Utils/helpers'
 import './index.scss'
 
@@ -27,13 +29,29 @@ class Adjust_Employee extends Component {
         salary: 0
       },
       titles: [],
-      deptManagers: []
+      defaultTitleItem: {
+        isAdd: true,
+        employeeId: 0,
+        from: getYesterday(),
+        to: getYesterday(new Date(Date.MAX_DATE)),
+        title: ''
+      },
+      deptManagers: [],
+      departments: [],
+      defaultDeptItem: {
+        isAdd: true,
+        employeeId: 0,
+        departmentId: 0,
+        from: getYesterday(),
+        to: getYesterday(new Date(Date.MAX_DATE))
+      }
     }
 
     this.onChange = this.onChange.bind(this)
     this.onBlur = this.onBlur.bind(this)
-    this.postSalary = this.postSalary.bind(this)
-    this.renderSalaryItem = this.renderSalaryItem.bind(this)
+    this.renderLists = this.renderLists.bind(this)
+    this.renderSalaries = this.renderSalaries.bind(this)
+    this.renderTitles = this.renderTitles.bind(this)
   }
 
   componentDidMount() {
@@ -57,7 +75,16 @@ class Adjust_Employee extends Component {
             employeeId: res.Id
           },
           titles: res.titles,
-          deptManagers: res.deptManagers
+          defaultTitleItem: {
+            ...this.state.defaultTitleItem,
+            employeeId: res.Id
+          },
+          deptManagers: res.deptManagers,
+          departments: res.departments,
+          defaultDeptItem: {
+            ...this.state.defaultDeptItem,
+            employeeId: res.Id
+          }
         })
       }).catch(err => console.log(err)) //TODO: better error handeling
     }
@@ -91,35 +118,138 @@ class Adjust_Employee extends Component {
           ...this.state.defaultSalaryItem,
           employeeId: res.Id
         },
+        defaultTitleItem: {
+          ...this.state.defaultTitleItem,
+          employeeId: res.Id
+        },
+        defaultDeptItem: {
+          ...this.state.defaultDeptItem,
+          employeeId: res.Id
+        }
       })
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
 
-  renderSalariesListTitle() {
+  renderSalaries() {
+    var items = [this.state.defaultSalaryItem].concat(this.state.salaries)
+
+    const renderTitle = () => {
+      return <div className="line" />
+    }
+
+    const postItem = (data) => {
+      postEmployeeSalary(data).then(res => {
+        this.setState({
+          ...this.state,
+          salaries: res
+        })
+      }).catch(err => console.log(err)) //TODO: better error handeling
+    }
+
+    const renderItem = (item, key) => {
+      return <SalaryItem key={key} item={item} postItem={postItem}/>
+    } 
+
     return (
-      <div className="salaryItem">
-        <div>From</div>
-        <div>To</div>
-        <div>Salary</div>
+      <div className="salaries">
+        <List 
+          renderTitle={() => <h2>Salaries</h2>}
+          availableHeight={100}
+          filListToWindowBottom
+          renderListTitle={renderTitle}
+          renderItem={renderItem}
+          items={items}
+        />
       </div>
     )
   }
 
-  renderSalaryItem(item, key) {
-    return <SalaryItem key={key} item={item} postSalary={this.postSalary}/>
+  renderTitles() {
+    var items = [this.state.defaultTitleItem].concat(this.state.titles)
+    
+    const renderTitle = () => {
+      return <div className="line" />
+    }
+
+    const postItem = (data) => {
+      postEmployeeTitle(data).then(res => {
+        this.setState({
+          ...this.state,
+          titles: res
+        })
+      }).catch(err => console.log(err)) //TODO: better error handeling
+    }
+
+    const renderItem = (item, key) => {
+      return <TitleItem key={key} item={item} postItem={postItem}/>
+    } 
+
+    return (
+      <div className="titles">
+        <List
+          renderTitle={() => <h2>Titles</h2>}
+          availableHeight={100}
+          filListToWindowBottom
+          renderListTitle={renderTitle}
+          renderItem={renderItem}
+          items={items}
+        />
+      </div>
+    )
   }
 
-  postSalary(data) {
-    postEmployeeSalary(data).then(res => {
-      this.setState({
-        ...this.state,
-        salaries: res
-      })
-    }).catch(err => console.log(err)) //TODO: better error handeling
+  renderDepartments(listName) {
+    var items = [this.state.defaultDeptItem].concat(this.state[listName])
+    
+    const renderTitle = () => {
+      return <div className="line" />
+    }
+
+    const postItem = (data) => {
+      const setRes = (res) => {
+        this.setState({
+          ...this.state,
+          [listName]: res
+        })
+      }
+      if (listName === 'departments')
+        postDepartmentEmployee(data).then(setRes).catch(err => console.log(err)) //TODO: better error handeling
+      else
+        postDepartmentManager(data).then(setRes).catch(err => console.log(err)) //TODO: better error handeling
+    }
+
+    const renderItem = (item, key) => {
+      return <DeptItem key={key} item={item} postItem={postItem}/>
+    } 
+
+    return (
+      <div className="departments">
+        <List
+          renderTitle={() => <h2>{listName === 'departments' ? 'In department' : 'Manager at'}</h2>}
+          availableHeight={100}
+          filListToWindowBottom
+          renderListTitle={renderTitle}
+          renderItem={renderItem}
+          items={items}
+        />
+      </div>
+    )
+  }
+
+  renderLists() {
+    if (!(this.state.employee.Id > 0)) return
+
+    return (
+      <div className="lists">
+        {this.renderSalaries()}
+        {this.renderTitles()}
+        {this.renderDepartments('departments')}
+        {this.renderDepartments('deptManagers')}
+      </div>
+    )
   }
 
     render() {
-      var items = [this.state.defaultSalaryItem].concat(this.state.salaries)
       return (
         <div className="postEmployee">
           <form>
@@ -155,16 +285,7 @@ class Adjust_Employee extends Component {
               <input id="hiredate" type="date" className="form-input" onChange={this.onChange} onBlur={this.onBlur} value={this.state.employee.hireDate}/>
             </div>
           </form>
-          {this.state.employee.Id > 0 && <div className="salaries">
-            <List 
-              renderTitle={() => <h2>Salaries</h2>}
-              availableHeight={100}
-              filListToWindowBottom
-              renderListTitle={this.renderSalariesListTitle}
-              renderItem={this.renderSalaryItem}
-              items={items}
-            />
-          </div>}
+          {this.renderLists()}
         </div>
       )
     }

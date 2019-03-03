@@ -2,8 +2,73 @@
     width: 95%;
     margin: 0 auto;
 
-    .salaries {
+    .lists {
         margin-top: 100px;
-        width: 23%;
+        display: inline-grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 50px;
+    }
+
+    .salaries, .titles, .departments {
+        width: 480px;
+        >div {
+            width: inherit;
+        }
+        display: inline-flex;
+
+        .line {
+            border-bottom: var(--main-third-color) 1px solid;
+        }
+        .salaryItem, .titleItem, .deptItem {
+            @extend .line;
+            width: 100%;
+            display: inline-grid;
+            padding-top: 10px;         
+            cursor: default;
+            >div {
+                text-align: left;
+                color: var(--main-text-color);        
+            }
+        
+            &:hover:not(.edit) {
+                border-color: var(--main-style-color);
+                background-color: var(--main-second-color);
+                cursor: pointer;
+            }
+        
+            &.edit {
+                padding-bottom: 10px;
+                grid-column-gap: 10px;
+                grid-row-gap: 10px;
+        
+                .main-theam-bth {
+                    border: 1px solid var(--main-style-color);
+                    border-radius: 5px;
+            
+                    &:hover {
+                        color: var(--main-style-color);
+                    }
+                }
+        
+                .new-btn {
+                    margin-top: 5px;
+                }
+        
+                .update-btn-group {
+                    display: inline-grid;
+                    grid-column-gap: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .postEmployee {
+        .salaries {
+            margin-top: 50px;
+            width: 100%;
+        }
     }
 }
