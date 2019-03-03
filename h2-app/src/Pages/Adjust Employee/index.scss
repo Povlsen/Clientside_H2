@@ -1,14 +1,17 @@
 .postEmployee {
+    height: 100%;
     width: 90%;
     margin: 0 auto;
 
-    
-
     .lists {
-        margin-top: 100px;
-        display: inline-grid;
+        margin-top: 50px;
+        display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-column-gap: 50px;
+
+        .mobile-list {
+            display: none;
+        }
     }
 
     .salaries, .titles, .departments {
@@ -40,8 +43,7 @@
                     cursor: pointer;
                 }
             }
-            
-        
+                    
             &.edit {
                 padding-bottom: 10px;
                 grid-column-gap: 10px;
@@ -98,14 +100,58 @@
 }
 
 
+@media only screen and (max-width: 1520px) {
+    .postEmployee {
+        .lists {
+            grid-template-columns: 200px 1fr;
+            >div:not(.active):not(.mobile-list) {
+                display: none;
+            }
+            .mobile-list {
+                display: block;
+                .main-theam-bth {
+                    width: 100%;
+                    margin-bottom: 5px;
+                    border: 1px solid var(--main-style-color);
+                    border-radius: 5px;
+            
+                    &:hover {
+                        color: var(--main-style-color);
+                    }
+                }
+            }
+        }
+    }    
+}
+
 @media only screen and (max-width: 600px) {
     .postEmployee {
-
-    }
-    .salary-chart {
-        canvas {
-            display: none !important;
+        .salary-chart {
+            canvas {
+                display: none !important;
+            }
+    
         }
+        .main-modify-form {
+            width: 100%;
+            max-width: unset;
+        }
+        .lists {
+            margin-top: unset; 
+            grid-template-columns: 100%;
+            .salaries, .titles, .departments {
+                width: 100%;
+            }
+            .list>h2 {
+                display: none;
+            }
 
-    }
+            .mobile-list {
+                .active {
+                    background: var(--main-style-color);
+                    color: #ffffff;
+                }
+            }
+        }
+    }    
 }

@@ -46,7 +46,8 @@ class Adjust_Employee extends Component {
         departmentId: 0,
         from: getYesterday(),
         to: getYesterday(new Date(Date.MAX_DATE))
-      }
+      },
+      mobileActiveList: 0
     }
 
     this.onChange = this.onChange.bind(this)
@@ -177,6 +178,7 @@ renderSalariesChart() {
   /*----------------------------------------------------------------------*/
   renderSalaries() {
     var items = [this.state.defaultSalaryItem].concat(this.state.salaries)
+    var activeClass = this.state.mobileActiveList === '1' ? 'active ' : ''
 
     const renderTitle = () => {
       return <div className="line" />
@@ -196,7 +198,7 @@ renderSalariesChart() {
     } 
 
     return (
-      <div className="salaries">
+      <div className={activeClass + "salaries"}>
         <List 
           renderTitle={() => <h2>Salaries</h2>}
           availableHeight={100}
@@ -211,6 +213,7 @@ renderSalariesChart() {
 
   renderTitles() {
     var items = [this.state.defaultTitleItem].concat(this.state.titles)
+    var activeClass = this.state.mobileActiveList === '2' ? 'active ' : ''
     
     const renderTitle = () => {
       return <div className="line" />
@@ -230,7 +233,7 @@ renderSalariesChart() {
     } 
 
     return (
-      <div className="titles">
+      <div className={activeClass + "titles"}>
         <List
           renderTitle={() => <h2>Titles</h2>}
           availableHeight={100}
@@ -245,7 +248,9 @@ renderSalariesChart() {
 
   renderDepartments(listName) {
     var items = [this.state.defaultDeptItem].concat(this.state[listName])
-    
+    var activeClass = ''
+    if ((this.state.mobileActiveList === '3' && listName === 'departments') || (this.state.mobileActiveList === '4' && listName === 'deptManagers'))  activeClass = 'active '
+
     const renderTitle = () => {
       return <div className="line" />
     }
@@ -258,7 +263,7 @@ renderSalariesChart() {
           [listName]: res
         })
       }
-      console.log('listName', listName)
+      
       if (listName === 'departments')
         postDepartmentEmployee(data).then(setRes).catch(err => console.log(err)) //TODO: better error handeling
       else
@@ -270,7 +275,7 @@ renderSalariesChart() {
     } 
 
     return (
-      <div className="departments">
+      <div className={activeClass + "departments"}>
         <List
           renderTitle={() => <h2>{listName === 'departments' ? 'In department' : 'Manager at'}</h2>}
           availableHeight={100}
@@ -285,9 +290,24 @@ renderSalariesChart() {
 
   renderLists() {
     if (!(this.state.employee.Id > 0)) return
+    var activeList = this.state.mobileActiveList
+
+    const setMobileActive = (e) => {
+      let value = e.target.value
+      this.setState({
+        ...this.state,
+        mobileActiveList: activeList === value ? 0 : value
+      })
+    }
 
     return (
       <div className="lists">
+        <div className="mobile-list">
+          <button className={(activeList === '1' ? 'active ' : '') + "main-theam-bth"} value="1" onClick={setMobileActive}>Salsries</button>
+          <button className={(activeList === '2' ? 'active ' : '') + "main-theam-bth"} value="2" onClick={setMobileActive}>Titles</button>
+          <button className={(activeList === '3' ? 'active ' : '') + "main-theam-bth"} value="3" onClick={setMobileActive}>Departments</button>
+          <button className={(activeList === '4' ? 'active ' : '') + "main-theam-bth"} value="4" onClick={setMobileActive}>Manager</button>
+        </div>
         {this.renderSalaries()}
         {this.renderTitles()}
         {this.renderDepartments('departments')}
