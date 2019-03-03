@@ -9,7 +9,7 @@ class Departments extends Component {
   state = {
     departments: [],
     availableHeight: 650
-  };
+  }
 
   componentDidMount() {
     getDepartments({ limit: 100 }).then(res => {
@@ -99,7 +99,7 @@ class Departments extends Component {
         </button>
       */}
       </div>
-    );
+    )
   }
 }
 

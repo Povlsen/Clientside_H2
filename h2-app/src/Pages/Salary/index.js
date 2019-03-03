@@ -1,7 +1,7 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
-import { MDBContainer } from "mdbreact";
-import './index.scss';
+import React from "react"
+import { Line } from "react-chartjs-2"
+import { MDBContainer } from "mdbreact"
+import './index.scss'
 
 
 class Salary extends React.Component {
@@ -41,8 +41,8 @@ render() {
         <h3 className="mt-5">Salary history</h3>
         <Line data={this.state.dataLine} options={{ responsive: true }} />
       </MDBContainer>
-    );
+    )
   }
 }
 
-export default Salary;
+export default Salary

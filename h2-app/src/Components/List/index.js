@@ -23,30 +23,44 @@ class List extends Component {
     this.seach = this.seach.bind(this)
     this.updateItems = this.updateItems.bind(this)
     this.loadMore = this.loadMore.bind(this)
+    this.updateFromProps = this.updateFromProps.bind(this)
   }
 
   componentDidMount() {
-    this.setState({
-        ...this.state,
-        availableHeight: this.props.initialListHeight,
-        listItemHeight: !isNaN(this.props.initialItemHeight) ? this.props.initialItemHeight : 20,
-        maxListSize: !isNaN(this.props.maxListSize) ? this.props.maxListSize : 120,
-        filter: {
-            ...this.state.filter,
-            limit: !isNaN(this.props.loadCount) ? this.props.loadCount : 100
-        }
-    }, this.seach)    
-    window.addEventListener('resize', this.setHeight.bind(this))
-    document.addEventListener('navResize', this.setHeight.bind(this))
+    this.updateFromProps(this.props)
+
+    if (this.props.filListToWindowBottom) {
+      window.addEventListener('resize', this.setHeight.bind(this))
+      document.addEventListener('navResize', this.setHeight.bind(this))
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.setHeight.bind(this))
-    document.removeEventListener('navResize', this.setHeight.bind(this))
+    if (this.props.filListToWindowBottom) {
+      window.removeEventListener('resize', this.setHeight.bind(this))
+      document.removeEventListener('navResize', this.setHeight.bind(this))
+    }
   }
 
   componentDidUpdate() {
     this.setHeight()
+  }
+
+  componentWillReceiveProps(next) {
+    this.updateFromProps(next)
+  }
+
+  updateFromProps(props) {
+      this.setState({
+        ...this.state,
+        availableHeight: props.initialListHeight,
+        listItemHeight: !isNaN(props.initialItemHeight) ? props.initialItemHeight : 20,
+        maxListSize: !isNaN(props.maxListSize) ? props.maxListSize : 120,
+        filter: {
+            ...this.state.filter,
+            limit: !isNaN(props.loadCount) ? props.loadCount : 100
+        }
+    }, this.seach)
   }
 
   setHeight() {
@@ -95,9 +109,17 @@ class List extends Component {
   }
 
   seach() {
-    this.props.getItems(this.state.filter).then(res => {
-      this.updateItems(res)
-    }).catch(err => console.log(err)) //TODO: better error handeling
+    if (this.props.autoLoad) {
+      this.props.getItems(this.state.filter).then(res => {
+        this.updateItems(res)
+      }).catch(err => console.log(err)) //TODO: better error handeling
+    } else {
+      this.setState({
+        ...this.state,
+          items: this.props.items
+      })
+    }
+
   }
 
   loadMore(isTop = false) {
@@ -129,7 +151,7 @@ class List extends Component {
 
   render() {
     const onScroll = (params) => {
-      if (this.state.listUpdated) return
+      if (this.props.autoLoad !== true || this.state.listUpdated) return
       
       var top = params.target.scrollTop
       var itemCount = this.state.items.length
@@ -154,12 +176,12 @@ class List extends Component {
 
     return (
       <div className="list">
-        <h1>{this.props.title}</h1>
-        <input type="text" className="seachBox" placeholder="Seach" onChange={textChanged} onBlur={this.seach} />
+        {this.props.renderTitle()}
+        {this.props.seacch === true && <input type="text" className="seachBox" placeholder="Seach" onChange={textChanged} onBlur={this.seach} />}
         <div className="listTitle" ref={this.listTitleRef}>
             {this.props.renderListTitle()}
         </div>
-        <div className="list" style={this.props.filListToWindowBottom ? {'height': this.state.availableHeight} : ''} onScroll={onScroll} ref={this.listRef}>
+        <div className="list" style={this.props.filListToWindowBottom ? {'height': this.state.availableHeight} : {}} onScroll={onScroll} ref={this.listRef}>
           <ReactList
             itemRenderer={(index, key) => { return this.props.renderItem(this.state.items[index], key) }}
             length={this.state.items.length}

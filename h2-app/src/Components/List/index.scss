@@ -5,6 +5,13 @@
         height: 650px;
     }
 
+    .listTitle {
+        border-bottom: 10px solid;
+        border-bottom:  var(--main-style-color);
+        color: var(--main-style-color);
+        font-weight: bolder;
+    }
+
     >h1 {
         display: inline;
     }

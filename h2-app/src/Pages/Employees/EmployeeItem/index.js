@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { getDateString } from '../../../Utils/helpers'
 import './index.scss'
 
-class Item extends Component {
+class EmployeeItem extends Component {
   state = {
     employee: {
       Id: 0,
@@ -17,13 +17,11 @@ class Item extends Component {
   componentDidMount() {
     var item = this.props.item
     this.setState({
+      ...this.state,
       employee: {
-        Id: item.Id,
+        ...item,
         birthDate: getDateString(item.birthDate),
-        hireDate: getDateString(item.hireDate),
-        firstName: item.firstName,
-        lastName: item.lastName,
-        gender: item.gender
+        hireDate: getDateString(item.hireDate)
       }
     })
   }
@@ -44,5 +42,5 @@ class Item extends Component {
   }
 }
 
-export default Item
+export default EmployeeItem
 

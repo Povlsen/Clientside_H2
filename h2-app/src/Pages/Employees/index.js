@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import List from '../../Components/List'
-import Item from './listItem'
+import EmployeeItem from './EmployeeItem'
 import { getEmployees } from '../../Utils/Employees'
 import './index.scss'
 
@@ -21,7 +21,7 @@ class Employees extends Component {
     }
 
     const renderItem = (item, key) => {
-      return <Item 
+      return <EmployeeItem 
         onClick={(Id) => this.props.history.push(`/employees/${Id}`)}
         item={item}
         key={key}
@@ -30,7 +30,9 @@ class Employees extends Component {
     return (
       <div className="employees">
         <List 
-          title='Employees'
+          renderTitle={() => <h1>Employees</h1>}
+          autoLoad
+          seach
           availableHeight={650}
           initialItemHeight={39}
           maxListSize={120}

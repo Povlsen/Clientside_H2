@@ -116,7 +116,9 @@ exports.start = function(port = 8080) {
     http.createServer(function(req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*")
         res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-        req.method=="POST"?handlePost(req,res):handleGet(req,res)
+        res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
+        if (req.method === "OPTIONS") res.end()
+        else req.method === "POST"?handlePost(req,res):handleGet(req,res)
     }).listen(port)
 }
 

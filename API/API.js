@@ -12,13 +12,13 @@ var db = mysql.createPool({
 const isCurrentFromDates = " AND from_date <= current_date() AND to_date >= current_date()"
 const empBaseSelect = "SELECT emp_no AS Id, first_name AS firstName, last_name AS lastName, gender, birth_date AS birthDate, hire_date AS hireDate FROM employees [where]"
 
-const empDeptHistory = "SELECT dept_emp.emp_no AS 'employeeId', departments.dept_no AS 'departmentId', departments.dept_name AS 'name', dept_emp.from_date AS 'from', dept_emp.to_date AS 'to' FROM dept_emp INNER JOIN departments ON departments.dept_no = dept_emp.dept_no WHERE dept_emp.emp_no = [empId]"
-const empManHistory = "SELECT dept_manager.emp_no AS 'employeeId', dept_manager.dept_no AS departmentId, departments.dept_name AS 'name', from_date AS 'from', to_date AS 'to' FROM dept_manager INNER JOIN departments ON departments.dept_no = dept_manager.dept_no WHERE dept_manager.emp_no = [empId]"
-const empTitelHistory = "SELECT emp_no AS 'employeeId', title, title AS 'originalTitle', from_date AS 'from', from_date AS 'originalFrom', to_date AS 'to' FROM titles WHERE emp_no = [empId]"
-const empSalHistory = "SELECT emp_no AS 'employeeId', salary, from_date AS 'from', from_date AS 'originalFrom', to_date AS 'to' FROM salaries WHERE emp_no = [empId]"
+const empDeptHistory = "SELECT dept_emp.emp_no AS 'employeeId', departments.dept_no AS 'departmentId', departments.dept_name AS 'name', dept_emp.from_date AS 'from', dept_emp.to_date AS 'to' FROM dept_emp INNER JOIN departments ON departments.dept_no = dept_emp.dept_no WHERE dept_emp.emp_no = [empId] ORDER BY dept_emp.from_date DESC"
+const empManHistory = "SELECT dept_manager.emp_no AS 'employeeId', dept_manager.dept_no AS departmentId, departments.dept_name AS 'name', from_date AS 'from', to_date AS 'to' FROM dept_manager INNER JOIN departments ON departments.dept_no = dept_manager.dept_no WHERE dept_manager.emp_no = [empId] ORDER BY from_date DESC"
+const empTitelHistory = "SELECT emp_no AS 'employeeId', title, title AS 'originalTitle', from_date AS 'from', from_date AS 'originalFrom', to_date AS 'to' FROM titles WHERE emp_no = [empId] ORDER BY from_date DESC"
+const empSalHistory = "SELECT emp_no AS 'employeeId', salary, from_date AS 'from', from_date AS 'originalFrom', to_date AS 'to' FROM salaries WHERE emp_no = [empId] ORDER BY from_date DESC"
 
 const deptBaseSelect = "SELECT dept_no AS Id, dept_name AS 'name' FROM departments"
-const deptManHistory = "SELECT m.dept_no AS departmentId, e.emp_no AS employeeId, e.first_name AS firstName, e.last_name AS lastName, e.gender, e.birth_date AS birthDate, e.hire_date AS hireDate, m.from_date AS 'from', m.to_date AS 'to' FROM dept_manager AS m INNER JOIN employees AS e ON e.emp_no = m.emp_no WHERE m.dept_no = [deptId]"
+const deptManHistory = "SELECT m.dept_no AS departmentId, e.emp_no AS employeeId, e.first_name AS firstName, e.last_name AS lastName, e.gender, e.birth_date AS birthDate, e.hire_date AS hireDate, m.from_date AS 'from', m.to_date AS 'to' FROM dept_manager AS m INNER JOIN employees AS e ON e.emp_no = m.emp_no WHERE m.dept_no = [deptId] ORDER BY m.from_date DESC"
 //#endregion Const queries
 
 //#region Employee(s) API's
@@ -70,9 +70,9 @@ rest.page("/api/employee/get/", async (q, res) => {
         }
     
         employee.departments = await db.query(empDeptHistory.replace('[empId]', q.Id))
-        employee.deptManager = await db.query(empManHistory.replace('[empId]', q.Id))
-        employee.titels = await db.query(empTitelHistory.replace('[empId]', q.Id))
-        employee.salary = await db.query(empSalHistory.replace('[empId]', q.Id))
+        employee.deptManagers = await db.query(empManHistory.replace('[empId]', q.Id))
+        employee.titles = await db.query(empTitelHistory.replace('[empId]', q.Id))
+        employee.salaries = await db.query(empSalHistory.replace('[empId]', q.Id))
     
         return employee
     } catch {
@@ -84,6 +84,7 @@ rest.page("/api/employee/get/", async (q, res) => {
 rest.page("/api/employee/post/", async (q, res) => {
     try {
         if (!isValidDate(q.birthDate) || !isValidDate(q.hireDate)) {
+            console.log('unvalid dates')
             res.writeHead(400, "Bad Request")
             return
         }
@@ -288,7 +289,7 @@ async function getNextId(tabel, col) {
 }
 
 const isValidDate = (date) => {
-    try{
+    try {
         var d = new Date(date);
         return d.getTime() === d.getTime()
     } catch {

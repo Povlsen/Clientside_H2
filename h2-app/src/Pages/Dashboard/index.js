@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './index.scss';
+import React, { Component } from 'react'
+import './index.scss'
 
 class Dashboard extends Component {
   render() {
@@ -24,6 +24,6 @@ class Dashboard extends Component {
       </body>
     )
   }
-};
+}
     
-export default Dashboard;
+export default Dashboard

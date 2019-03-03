@@ -1,0 +1,34 @@
+.salaryItem {
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: 40% 40% 20%;
+    border-bottom: var(--main-third-color) 1px solid;
+    padding-top: 10px;
+    cursor: default;
+    >div {
+        text-align: left;
+        color: var(--main-text-color);        
+    }
+
+    &:hover:not(.edit) {
+        border-color: var(--main-style-color);
+        background-color: var(--main-second-color);
+        cursor: pointer;
+    }
+
+    &.edit {
+        //border-color: var(--main-style-color);
+        padding-bottom: 10px;
+
+        .update-btn {
+            margin-top: 5px;
+            grid-column: 1 / span 3;
+            border: 1px solid var(--main-style-color);
+            border-radius: 5px;
+
+            &:hover {
+                color: var(--main-style-color);
+            }
+        }
+    }
+}
