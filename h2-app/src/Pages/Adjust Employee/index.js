@@ -6,6 +6,8 @@ import SalaryItem from './SalaryItem'
 import TitleItem from './TitleItem'
 import DeptItem from './DeptItem'
 import { getDateString, getYesterday } from '../../Utils/helpers'
+import { Line } from "react-chartjs-2"
+import { MDBContainer } from "mdbreact"
 import './index.scss'
 
 class Adjust_Employee extends Component {
@@ -130,6 +132,49 @@ class Adjust_Employee extends Component {
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
 
+  /*-------------------------SALARY CHART -------------------------------*/
+
+chartState = {
+    dataLine: {
+      labels: ["1987-06-26", "1988-06-25", "1990-06-25", '1993-06-24', '1994-06-24', '1995-06-24', '2000-06-22'],
+      datasets: [
+        {
+          label: "Emils test data",
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: "rgba(22,188,185,0.4)",
+          borderColor: "rgba(22,188,185,1)",
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: "rgba(22,188,185,1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(22,188,185,1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [12000, 12500, 13500, 13000, 14000, 15000, 15200]
+        }
+      ]
+    }
+  }
+
+renderSalariesChart() {
+    return (
+      <div className="salary-chart">
+      <MDBContainer>
+        <Line id="salaryChart" data={this.chartState.dataLine} options={{ responsive: true }} />
+      </MDBContainer>
+      </div>
+    )
+  }
+
+
+  /*----------------------------------------------------------------------*/
   renderSalaries() {
     var items = [this.state.defaultSalaryItem].concat(this.state.salaries)
 
@@ -254,22 +299,22 @@ class Adjust_Employee extends Component {
     render() {
       return (
         <div className="postEmployee">
-          <form>
+          <form className="main-modify-form">
             <div className="form-group row">
-              <label htmlFor="firstname" className="col-sm-1 col-form-label">Firstname</label>
+              <label htmlFor="firstname" className="col-form-label">Firstname</label>
               <input id="firstname" type="text" className="form-input" id="firstnameInput" name="firstName" onChange={this.onChange} onBlur={this.onBlur} defaultValue={this.state.employee.firstName}/>
             </div>
             <div className="form-group row">
-              <label htmlFor="lastname" className="col-sm-1 col-form-label">Lastname</label>
+              <label htmlFor="lastname" className="col-form-label">Lastname</label>
               <input id="lastname" type="text" className="form-input" id="lastnameInput" name="lastName" onChange={this.onChange} onBlur={this.onBlur} defaultValue={this.state.employee.lastName}/>
             </div>
             <div className="form-group row">
-              <label htmlFor="birthdate" className="col-sm-1 col-form-label">Birthdate</label>
+              <label htmlFor="birthdate" className="col-form-label">Birthdate</label>
               <input id="birthdate" type="date" className="form-input" id="birthdateInput" name="birthDate" onChange={this.onChange} onBlur={this.onBlur} value={this.state.employee.birthDate}/>
             </div>
             <fieldset className="form-group">
               <div className="row">
-                <legend className="col-form-label col-sm-1">Gender</legend>
+                <legend className="col-form-label ">Gender</legend>
                 <div className="col-sm-10">
                   <div className="form-check">
                     <input className="form-check-input" type="radio" name="gender" id="maleGender" value="M" onChange={this.onChange} onBlur={this.onBlur} checked={this.state.employee.gender === 'M'} />
@@ -283,10 +328,12 @@ class Adjust_Employee extends Component {
               </div>
             </fieldset>
             <div className="form-group row">
-              <label htmlFor="hiredate" className="col-sm-1 col-form-label">Hiredate</label>
+              <label htmlFor="hiredate" className="col-form-label">Hiredate</label>
               <input id="hiredate" type="date" className="form-input" onChange={this.onChange} onBlur={this.onBlur} value={this.state.employee.hireDate}/>
             </div>
           </form>
+          
+          {this.renderSalariesChart()}
           {this.renderLists()}
         </div>
       )

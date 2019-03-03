@@ -4,7 +4,7 @@ import { MDBContainer } from "mdbreact"
 import './index.scss'
 
 
-class Salary extends React.Component {
+class SalaryChart extends React.Component {
   state = {
     dataLine: {
       labels: ["1987-06-26", "1988-06-25", "1990-06-25", '1993-06-24', '1994-06-24', '1995-06-24', '2000-06-22'],
@@ -45,4 +45,4 @@ render() {
   }
 }
 
-export default Salary
+export default SalaryChart
