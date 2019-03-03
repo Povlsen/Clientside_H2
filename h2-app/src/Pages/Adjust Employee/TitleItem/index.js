@@ -71,8 +71,11 @@ constructor(props) {
     const renderStatic = () => {
         return (
           <div className="titleItem" onClick={setAsEdit}>
+            <div className="title">From</div>
             <div>{item.from}</div>
+            <div className="title">To</div>
             <div>{item.to}</div>
+            <div className="title">Title</div>
             <div>{item.title}</div>
           </div>
         )
@@ -90,8 +93,11 @@ constructor(props) {
         if (this.state.edit) {
             return (
                 <div className="edit titleItem">
+                  <div className="title">From</div>
                   <input type='date' name='from' className="form-input" value={item.from} onChange={this.onChange} />
+                  <div className="title">To</div>
                   <input type='date' name='to' className="form-input" value={item.to} onChange={this.onChange} />
+                  <div className="title">Title</div>
                   <input type='text' name='title' className="form-input" value={item.title} onChange={this.onChange} />
                   <div className="update-btn-group">
                     <button className="main-theam-bth" onClick={onSave}>{item.isAdd ? 'Add' : 'Update'}</button>

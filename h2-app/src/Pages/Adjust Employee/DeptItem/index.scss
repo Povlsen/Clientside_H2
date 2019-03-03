@@ -1,14 +1,5 @@
 .deptItem {
-    grid-template-columns: 1fr 1fr 1fr;
-
     &.edit {
-        .new-btn {
-            grid-column: 1 / span 3;
-        }
-
-        .update-btn-group {
-            grid-template-columns: 1fr 1fr;
-            grid-column: 1 / span 3;
-        }
+        
     }
 }
