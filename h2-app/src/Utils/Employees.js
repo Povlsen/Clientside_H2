@@ -8,6 +8,10 @@ export async function getEmployee(Id) {
     return GET(`employee/get/?Id=${Id}`)
 }
 
+export async function getEmployeeMissingDepts(Id, type = '') {
+    return GET(`employee/departments/missing/get/?Id=${Id}${type !== '' ? `&type=${type}` : ''}`)
+}
+
 export async function postEmployee(data) {
     return POST('employee/post/', data)
 }

@@ -17,7 +17,7 @@ const empManHistory = "SELECT dept_manager.emp_no AS 'employeeId', dept_manager.
 const empTitelHistory = "SELECT emp_no AS 'employeeId', title, title AS 'originalTitle', from_date AS 'from', from_date AS 'originalFrom', to_date AS 'to' FROM titles WHERE emp_no = [empId] ORDER BY from_date DESC"
 const empSalHistory = "SELECT emp_no AS 'employeeId', salary, from_date AS 'from', from_date AS 'originalFrom', to_date AS 'to' FROM salaries WHERE emp_no = [empId] ORDER BY from_date DESC"
 
-const deptBaseSelect = "SELECT dept_no AS Id, dept_name AS 'name' FROM departments"
+const deptBaseSelect = "SELECT departments.dept_no AS Id, departments.dept_name AS 'name' FROM departments"
 const deptManHistory = "SELECT m.dept_no AS departmentId, e.emp_no AS employeeId, e.first_name AS firstName, e.last_name AS lastName, e.gender, e.birth_date AS birthDate, e.hire_date AS hireDate, m.from_date AS 'from', m.to_date AS 'to' FROM dept_manager AS m INNER JOIN employees AS e ON e.emp_no = m.emp_no WHERE m.dept_no = [deptId] ORDER BY m.from_date DESC"
 //#endregion Const queries
 
@@ -75,6 +75,16 @@ rest.page("/api/employee/get/", async (q, res) => {
         employee.salaries = await db.query(empSalHistory.replace('[empId]', q.Id))
     
         return employee
+    } catch {
+        res.writeHead(400, "Bad Request")
+        return
+    }
+})
+
+rest.page("/api/employee/departments/missing/get/", async (q, res) => {
+    try {
+        let getMissingDepts = `SELECT dept_no AS 'Id', dept_name AS 'name' FROM departments WHERE dept_no NOT IN(select dept_no from dept_${q.type === 'manage' ? 'manager' : 'emp'} where emp_no = ${q.Id})`
+        return db.query(getMissingDepts)
     } catch {
         res.writeHead(400, "Bad Request")
         return
@@ -148,11 +158,11 @@ rest.page("/api/employee/title/post/", async (q, res) => {
         } else {
             if (isValidDate(q.originalFrom)) {
                 // tile exists
-                var updateQur = `UPDATE titles SET title = ${q.title}, from_date = DATE('${q.from}'), to_date = DATE('${q.to}') WHERE emp_no = ${q.employeeId} AND from_date = DATE('${q.originalFrom} AND title = '${q.originalTitle}'`
+                var updateQur = `UPDATE titles SET title = '${q.title}', from_date = DATE('${q.from}'), to_date = DATE('${q.to}') WHERE emp_no = ${q.employeeId} AND from_date = DATE('${q.originalFrom}') AND title = '${q.originalTitle}'`
                 var updated = await db.query(updateQur)
                 if (updated.affectedRows === 0) isBadRequest = true
             } else {
-                var insertQur = `INSERT INTO title (emp_no, title, from_date, to_date) VALUES (${q.employeeId}, '${q.title}', DATE('${q.from}'), DATE('${q.to}'))`
+                var insertQur = `INSERT INTO titles (emp_no, title, from_date, to_date) VALUES (${q.employeeId}, '${q.title}', DATE('${q.from}'), DATE('${q.to}'))`
                 var inserted = await db.query(insertQur)
                 if (inserted.affectedRows === 0) isBadRequest = true
             }
@@ -169,6 +179,8 @@ rest.page("/api/employee/title/post/", async (q, res) => {
         return
     }
 })
+
+
 //#endregion Employee(s) API's
 
 //#region Department(s) API's
@@ -241,7 +253,7 @@ rest.page("/api/department/employee/post/", async (q, res) => {
             let currentEmpToDept = await db.query(getEmpToDeptQery)
             if (currentEmpToDept.length === 1) {
                 // employee is manager in department
-                var updateQur = `UPDATE dept_manager SET emp_no = ${q.employeeId}, dept_no = '${q.departmentId}', from_date = DATE('${q.from}'), to_date = DATE('${q.to}') WHERE emp_no = ${q.employeeId} AND dept_no = '${q.departmentId}'`
+                var updateQur = `UPDATE dept_emp SET emp_no = ${q.employeeId}, dept_no = '${q.departmentId}', from_date = DATE('${q.from}'), to_date = DATE('${q.to}') WHERE emp_no = ${q.employeeId} AND dept_no = '${q.departmentId}'`
                 var updated = await db.query(updateQur)
                 if (updated.affectedRows === 0) isBadRequest = true
             } else {

@@ -206,12 +206,14 @@ class Adjust_Employee extends Component {
     }
 
     const postItem = (data) => {
+      data.isFromEmployee = true
       const setRes = (res) => {
         this.setState({
           ...this.state,
           [listName]: res
         })
       }
+      console.log('listName', listName)
       if (listName === 'departments')
         postDepartmentEmployee(data).then(setRes).catch(err => console.log(err)) //TODO: better error handeling
       else
@@ -219,7 +221,7 @@ class Adjust_Employee extends Component {
     }
 
     const renderItem = (item, key) => {
-      return <DeptItem key={key} item={item} postItem={postItem}/>
+      return <DeptItem key={key} item={item} postItem={postItem} type={listName === 'deptManagers' ? 'manage' : ''} />
     } 
 
     return (

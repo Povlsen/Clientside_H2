@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { getDateString } from '../../../Utils/helpers'
+import { getEmployeeMissingDepts } from '../../../Utils/Employees'
 import './index.scss'
 
 class DeptItem extends Component {
@@ -13,11 +14,13 @@ constructor(props) {
           to: '',
           name: ''
         },
-        edit: false
+        edit: false,
+        missingDepts: null
     }
 
     this.onChange = this.onChange.bind(this)
     this.updateItem = this.updateItem.bind(this)
+    this.getMissingDepts = this.getMissingDepts.bind(this)
 }
 
   componentDidMount() {
@@ -45,10 +48,19 @@ constructor(props) {
       })
   }
 
+  getMissingDepts() {
+    getEmployeeMissingDepts(this.state.item.employeeId, this.props.type).then(res => {
+      this.setState({
+        ...this.state,
+        missingDepts: res
+      })
+    }).catch(err => console.log(err)) //TODO: better error handeling
+  }
+
   onChange(e) {
     var value = e.target.value
     var property = e.target.name
-
+    
     this.setState({
       ...this.state,
       item: {
@@ -88,6 +100,21 @@ constructor(props) {
       })
     }
 
+    const renderDepartmentSelect = () => {
+      var missing = this.state.missingDepts
+      if (missing === null) {
+        this.getMissingDepts()
+        missing = []
+      }
+
+      return (
+        <select value={this.state.item.departmentId} name='departmentId' onChange={this.onChange}>
+          <option value=''>Select department</option>
+          {missing.map((dept, key) => { return <option key={key} value={dept.Id}>{dept.name}</option> })}
+        </select>
+      )
+    }
+
     const renderPost = () => {
         if (this.state.edit) {
             return (
@@ -97,9 +124,7 @@ constructor(props) {
                   <div className="title">To</div>
                   <input type='date' name='to' className="form-input" value={item.to} onChange={this.onChange} />
                   <div className="title">Department</div>
-                  {this.state.item.isAdd ? 
-                    (<input type='number' name='departmentId' className="form-input" value={item.departmentId} onChange={this.onChange} />) 
-                    : (<div>{item.name}</div>)}
+                  {this.state.item.isAdd ? renderDepartmentSelect() : <div>{item.name}</div>}
                   <div className="update-btn-group">
                     <button className="main-theam-bth" onClick={onSave}>{item.isAdd ? 'Add' : 'Update'}</button>
                     <button className="main-theam-bth" onClick={onCancel}>Cancel</button>
@@ -117,6 +142,12 @@ constructor(props) {
 
     const onSave = () => {
         this.props.postItem(this.state.item)
+        if (this.state.item.isAdd) {
+          this.setState({
+            ...this.state,
+            missingDepts: null
+          })
+        }    
     }
 
     return (this.state.edit || this.state.item.isAdd) ? renderPost() : renderStatic()
