@@ -136,6 +136,7 @@ renderSalariesChart() {
   let salaries = this.state.salaries
   if (salaries.length <= 1) return
   
+  salaries.reverse()
   let labels = salaries.map(sal => { return sal.from })
   let values = salaries.map(sal => { return sal.salary })
 
