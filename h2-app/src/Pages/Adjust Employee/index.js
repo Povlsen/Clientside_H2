@@ -323,6 +323,7 @@ renderSalariesChart() {
     render() {
       return (
         <div className="postEmployee">
+        <div className="form-chart-holder">
           <form className="main-modify-form">
               <label htmlFor="firstname" className="col-form-label">Firstname</label>
               <input id="firstname" type="text" className="form-input" id="firstnameInput" name="firstName" onChange={this.onChange} onBlur={this.onBlur} defaultValue={this.state.employee.firstName}/>
@@ -346,6 +347,7 @@ renderSalariesChart() {
           </form>
           
           {this.renderSalariesChart()}
+          </div>
           {this.renderLists()}
         </div>
       )
