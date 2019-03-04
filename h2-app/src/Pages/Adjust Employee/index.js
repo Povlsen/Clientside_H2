@@ -146,7 +146,7 @@ renderSalariesChart() {
     labels: labels,
     datasets: [
       {
-        label: "Emils test data",
+        label: "Salary",
         fill: true,
         lineTension: 0.1,
         backgroundColor: "rgba(22,188,185,0.4)",
