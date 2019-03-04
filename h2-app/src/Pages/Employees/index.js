@@ -41,6 +41,7 @@ class Employees extends Component {
           renderListTitle={renderListTitle}
           renderItem={renderItem}
           getItems={getEmployees}
+          sortFilter={null}
         />
       </div>
     )

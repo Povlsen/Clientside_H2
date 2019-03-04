@@ -25,7 +25,59 @@ const deptManHistory = "SELECT m.dept_no AS departmentId, e.emp_no AS employeeId
 //#region Employee(s) API's
 rest.page("/api/employees/get/", async (q, res) => {
     try {
-        let baseSQL =  empBaseSelect + ` ORDER BY emp_no ${q.isTop === true ? 'DESC' : 'ASC'} LIMIT [limitCount]`
+        let baseSQL =  empBaseSelect + ` ORDER BY [sort] LIMIT [limitCount]`
+        if (q.sort !== undefined && q.sort != null) {
+            var column = ''
+            var ascDesc = ''
+            switch (q.sort.column) {
+                
+                case 1:
+                    column = 'frist_name'
+                    break;
+                case 2:
+                    column = 'last_name'
+                    break;
+                case 3:
+                    column = 'birth_date'
+                    break;
+                case 4:
+                    column = 'gender'
+                    break;
+                case 5:
+                    column = 'hire_date'
+                    break;
+                case 0:
+                default:
+                    column = 'emp_no'
+                    break;
+            }
+
+            if (q.isTop === true) {
+                switch (q.sort.ascDesc) {                    
+                    case false:
+                        ascDesc = 'ASC'
+                        break;
+                    case true:
+                    default:
+                        ascDesc = 'DESC'
+                        break;
+                }
+            } else {
+                switch (q.sort.ascDesc) {                    
+                    case false:
+                        ascDesc = 'DESC'
+                        break;
+                    case true:
+                    default:
+                        ascDesc = 'ASC'
+                        break;
+                }
+            }
+
+            baseSQL = baseSQL.replace('[sort]', `${column} ${ascDesc}`)
+        } else {
+            baseSQL = baseSQL.replace('[sort]', `emp_no ${q.isTop === true ? 'DESC' : 'ASC'}`)
+        }
 
         var where = ''
         var isWhereAdded = false
