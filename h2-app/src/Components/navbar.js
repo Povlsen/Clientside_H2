@@ -31,16 +31,6 @@ class Navbar extends Component {
              <li className={curPath === "/departments" ? "active" : ""}><Link to='/departments'>Departments</Link></li>
              <li className={/^\/employees\/([0-9]+)$/.test(curPath) ? "active" : ""}><Link to='/employees/0'>{`${/^\/employees\/([1-9][0-9]+)$/.test(curPath) ? 'Edit' : 'Add'} Employee`}</Link></li>
             </ul>
-            <ul className="nav navbar-nav navbar-right">
-            <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="">Settings <span className="caret"></span></a>
-                <ul className="dropdown-menu">
-                  <li><a href="">1</a></li>
-                  <li><a href="">2</a></li>
-                  <li><a href="">3</a></li>
-                </ul>
-              </li>
-            </ul>
           </div>
         </div>        
       </nav>

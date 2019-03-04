@@ -65,15 +65,15 @@ class List extends Component {
 
   setHeight() {
     if (this.props.filListToWindowBottom) {
-    try {
+      try {
         var height = (window.innerHeight - this.listTitleRef.current.getBoundingClientRect().bottom)
         if (this.state.availableHeight !== height) {
             this.setState({
-            ...this.state,
-            availableHeight: height
+              ...this.state,
+              availableHeight: height
             })
         }
-        } catch {}
+      } catch {}
     }
 
     try {

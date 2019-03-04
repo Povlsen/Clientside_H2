@@ -139,13 +139,11 @@ renderSalariesChart() {
   let labels = salaries.map(sal => { return sal.from })
   let values = salaries.map(sal => { return sal.salary })
 
-  console.log(labels, values)
-
   let dataLine = {
     labels: labels,
     datasets: [
       {
-        label: "Salary",
+        label: "Salary", 
         fill: true,
         lineTension: 0.1,
         backgroundColor: "rgba(22,188,185,0.4)",
@@ -166,6 +164,7 @@ renderSalariesChart() {
         data: values
       }
     ]
+    
   }
 
     return (
