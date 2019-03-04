@@ -137,7 +137,7 @@ renderSalariesChart() {
   if (salaries.length <= 1) return
   
   salaries.reverse()
-  let labels = salaries.map(sal => { return sal.from })
+  let labels = salaries.map(sal => { return getDateString(sal.from) })
   let values = salaries.map(sal => { return sal.salary })
 
   console.log(labels, values)
