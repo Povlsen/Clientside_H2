@@ -61,14 +61,12 @@ class Adjust_Employee extends Component {
     var id = this.props.match.params.Id
     if (id > 0) {
       getEmployee(id).then(res => {
+        res = res[0]
         this.setState({
           ...this.state, 
           employee: {
             ...this.state.employee,
-            Id: res.Id,
-            firstName: res.firstName,
-            lastName: res.lastName,
-            gender: res.gender,
+            ...res,
             birthDate: getDateString(res.birthDate),
             hireDate: getDateString(res.hireDate)
           },
@@ -109,8 +107,9 @@ class Adjust_Employee extends Component {
   onBlur() {
     let data = this.state.employee
     postEmployee(data).then(res => {
+      res = res[0]
+      if (data.Id === 0) this.props.history.push(`/employees/${res.Id}`)
       this.setState({
-        ...this.state,
         employee: {
           ...this.state.employee,
           ...res,
@@ -129,7 +128,7 @@ class Adjust_Employee extends Component {
           ...this.state.defaultDeptItem,
           employeeId: res.Id
         }
-      })
+      }, () => console.log(this.state.employee))
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
 
@@ -289,7 +288,7 @@ renderSalariesChart() {
   }
 
   renderLists() {
-    if (!(this.state.employee.Id > 0)) return
+    if (this.state.employee.Id <= 0) return
     var activeList = this.state.mobileActiveList
 
     const setMobileActive = (e) => {
