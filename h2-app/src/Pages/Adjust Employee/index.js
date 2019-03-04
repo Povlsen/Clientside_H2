@@ -5,7 +5,6 @@ import List from '../../Components/List'
 import SalaryItem from './SalaryItem'
 import TitleItem from './TitleItem'
 import DeptItem from './DeptItem'
-import { getDateString, getYesterday } from '../../Utils/helpers'
 import { Line } from "react-chartjs-2"
 import { MDBContainer } from "mdbreact"
 import './index.scss'
@@ -19,23 +18,23 @@ class Adjust_Employee extends Component {
         firstName: '',
         lastName: '',
         birthDate: Date.MIN_DATE,
-        hireDate: getDateString(getYesterday()),
+        hireDate: Date.CURRENT,
         gender: 'M'
       },
       salaries: [],
       defaultSalaryItem: {
         isAdd: true,
         employeeId: 0,
-        from: getYesterday(),
-        to: getYesterday(new Date(Date.MAX_DATE)),
+        from: Date.CURRENT,
+        to: Date.MAX_DATE,
         salary: 0
       },
       titles: [],
       defaultTitleItem: {
         isAdd: true,
         employeeId: 0,
-        from: getYesterday(),
-        to: getYesterday(new Date(Date.MAX_DATE)),
+        from: Date.CURRENT,
+        to: Date.MAX_DATE,
         title: ''
       },
       deptManagers: [],
@@ -44,8 +43,8 @@ class Adjust_Employee extends Component {
         isAdd: true,
         employeeId: 0,
         departmentId: 0,
-        from: getYesterday(),
-        to: getYesterday(new Date(Date.MAX_DATE))
+        from: Date.CURRENT,
+        to: Date.MAX_DATE
       },
       mobileActiveList: 0
     }
@@ -66,8 +65,8 @@ class Adjust_Employee extends Component {
           employee: {
             ...this.state.employee,
             ...res,
-            birthDate: getDateString(res.birthDate),
-            hireDate: getDateString(res.hireDate)
+            birthDate: res.birthDate,
+            hireDate: res.hireDate
           },
           salaries: res.salaries,
           defaultSalaryItem: {
@@ -111,8 +110,8 @@ class Adjust_Employee extends Component {
         employee: {
           ...this.state.employee,
           ...res,
-          birthDate: getDateString(res.birthDate),
-          hireDate: getDateString(res.hireDate)
+          birthDate: res.birthDate,
+          hireDate: res.hireDate
         },
         defaultSalaryItem: {
           ...this.state.defaultSalaryItem,
@@ -137,7 +136,7 @@ renderSalariesChart() {
   if (salaries.length <= 1) return
   
   salaries.reverse()
-  let labels = salaries.map(sal => { return getDateString(sal.from) })
+  let labels = salaries.map(sal => { return sal.from })
   let values = salaries.map(sal => { return sal.salary })
 
   console.log(labels, values)

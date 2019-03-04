@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { getDateString } from '../../../Utils/helpers'
 import './index.scss'
 
 class SalaryItem extends Component {
@@ -38,9 +37,9 @@ constructor(props) {
         ...this.state,
         item: {
           ...item,
-          originalFrom: item.isAdd ? '' : getDateString(item.originalFrom),
-          from: getDateString(item.from),
-          to: getDateString(item.to)
+          originalFrom: item.isAdd ? '' : item.originalFrom,
+          from: item.from,
+          to: item.to
         }
       })
   }

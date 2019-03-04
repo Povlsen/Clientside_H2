@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { getDateString } from '../../../Utils/helpers'
 import './index.scss'
 
 class EmployeeItem extends Component {
@@ -20,8 +19,8 @@ class EmployeeItem extends Component {
       ...this.state,
       employee: {
         ...item,
-        birthDate: getDateString(item.birthDate),
-        hireDate: getDateString(item.hireDate)
+        birthDate: item.birthDate,
+        hireDate: item.hireDate
       }
     })
   }
