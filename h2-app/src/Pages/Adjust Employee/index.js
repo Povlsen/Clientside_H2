@@ -65,10 +65,7 @@ class Adjust_Employee extends Component {
           ...this.state, 
           employee: {
             ...this.state.employee,
-            Id: res.Id,
-            firstName: res.firstName,
-            lastName: res.lastName,
-            gender: res.gender,
+            ...res,
             birthDate: getDateString(res.birthDate),
             hireDate: getDateString(res.hireDate)
           },
@@ -109,8 +106,8 @@ class Adjust_Employee extends Component {
   onBlur() {
     let data = this.state.employee
     postEmployee(data).then(res => {
+      if (data.Id === 0) this.props.history.push(`/employees/${res.Id}`)
       this.setState({
-        ...this.state,
         employee: {
           ...this.state.employee,
           ...res,
@@ -129,46 +126,53 @@ class Adjust_Employee extends Component {
           ...this.state.defaultDeptItem,
           employeeId: res.Id
         }
-      })
+      }, () => console.log(this.state.employee))
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
 
   /*-------------------------SALARY CHART -------------------------------*/
 
-chartState = {
-    dataLine: {
-      labels: ["1987-06-26", "1988-06-25", "1990-06-25", '1993-06-24', '1994-06-24', '1995-06-24', '2000-06-22'],
-      datasets: [
-        {
-          label: "Emils test data",
-          fill: true,
-          lineTension: 0.1,
-          backgroundColor: "rgba(22,188,185,0.4)",
-          borderColor: "rgba(22,188,185,1)",
-          borderCapStyle: "butt",
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: "miter",
-          pointBorderColor: "rgba(22,188,185,1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(22,188,185,1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [12000, 12500, 13500, 13000, 14000, 15000, 15200]
-        }
-      ]
-    }
+renderSalariesChart() {
+  let salaries = this.state.salaries
+  if (salaries.length <= 1) return
+  
+  salaries.reverse()
+  let labels = salaries.map(sal => { return sal.from })
+  let values = salaries.map(sal => { return sal.salary })
+
+  console.log(labels, values)
+
+  let dataLine = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Emils test data",
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: "rgba(22,188,185,0.4)",
+        borderColor: "rgba(22,188,185,1)",
+        borderCapStyle: "butt",
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: "miter",
+        pointBorderColor: "rgba(22,188,185,1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(22,188,185,1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: values
+      }
+    ]
   }
 
-renderSalariesChart() {
     return (
       <div className="salary-chart">
       <MDBContainer>
-        <Line id="salaryChart" data={this.chartState.dataLine} options={{ responsive: true }} />
+        <Line id="salaryChart" data={dataLine} options={{ responsive: true }} />
       </MDBContainer>
       </div>
     )
@@ -289,7 +293,7 @@ renderSalariesChart() {
   }
 
   renderLists() {
-    if (!(this.state.employee.Id > 0)) return
+    if (this.state.employee.Id <= 0) return
     var activeList = this.state.mobileActiveList
 
     const setMobileActive = (e) => {

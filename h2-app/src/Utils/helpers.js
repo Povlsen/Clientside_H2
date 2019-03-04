@@ -1,4 +1,6 @@
 export function getDateString(date) {
+    if (date === undefined) return date
+    
     if (typeof date === 'string') 
         date = new Date(date)
         

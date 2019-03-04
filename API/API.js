@@ -112,7 +112,7 @@ rest.page("/api/employee/post/", async (q, res) => {
             getEmpQery = empBaseSelect.replace('[where]', `WHERE emp_no = ${empId}`)
         }
     
-        return await db.query(getEmpQery)
+        return (await db.query(getEmpQery))[0]
     } catch {
         res.writeHead(400, "Bad Request")
         return
