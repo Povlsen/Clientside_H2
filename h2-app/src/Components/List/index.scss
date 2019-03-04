@@ -10,6 +10,17 @@
         border-bottom:  var(--main-style-color);
         color: var(--main-style-color);
         font-weight: bolder;
+
+        >div:hover{
+            background-color: var(--main-bg-color);
+            cursor: pointer;
+        }
+
+        >div div:hover{
+            border-color: var(--main-style-color);
+            color: var(--main-txt-color);
+            cursor: pointer;
+        }
     }
 
     >h1 {

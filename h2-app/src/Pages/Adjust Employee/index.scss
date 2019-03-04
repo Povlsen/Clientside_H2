@@ -82,7 +82,23 @@
         max-width: 40%;
 
         input {
-            margin-left: 30px;
+            width: 100%;
+        }
+
+        .gender {
+            width: 100%;
+        }
+        .gender-type-label {
+            margin-left: 15px;
+            margin-right: 5px;
+        }
+        
+    }
+    .form-group {
+        margin-bottom: 0px;
+        input {
+            width: 10px !important;
+            margin-bottom: 0px;
         }
     }
     .salary-chart {
@@ -121,6 +137,14 @@
                 }
             }
         }
+        .form-group {
+            margin-bottom: 0px;
+            input {
+                width: 10px !important;
+
+            margin-bottom: 0px;
+            }
+        }
     }    
 }
 
@@ -135,6 +159,15 @@
         .main-modify-form {
             width: 100%;
             max-width: unset;
+        }
+        
+        .form-group {
+            margin-bottom: 0px;
+            input {
+                width: 10px !important;
+
+            margin-bottom: 0px;
+            }
         }
         .lists {
             margin-top: unset; 
