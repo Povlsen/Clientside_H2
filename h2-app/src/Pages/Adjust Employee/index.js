@@ -303,7 +303,7 @@ renderSalariesChart() {
     return (
       <div className="lists">
         <div className="mobile-list">
-          <button className={(activeList === '1' ? 'active ' : '') + "main-theam-bth"} value="1" onClick={setMobileActive}>Salsries</button>
+          <button className={(activeList === '1' ? 'active ' : '') + "main-theam-bth"} value="1" onClick={setMobileActive}>Salaries</button>
           <button className={(activeList === '2' ? 'active ' : '') + "main-theam-bth"} value="2" onClick={setMobileActive}>Titles</button>
           <button className={(activeList === '3' ? 'active ' : '') + "main-theam-bth"} value="3" onClick={setMobileActive}>Departments</button>
           <button className={(activeList === '4' ? 'active ' : '') + "main-theam-bth"} value="4" onClick={setMobileActive}>Manager</button>
