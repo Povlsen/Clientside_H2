@@ -132,7 +132,7 @@ class Adjust_Employee extends Component {
   /*-------------------------SALARY CHART -------------------------------*/
 
 renderSalariesChart() {
-  let salaries = this.state.salaries
+  let salaries = Array.from(this.state.salaries)
   if (salaries.length <= 1) return
   
   salaries.reverse()
