@@ -3,7 +3,6 @@ import List from '../../Components/List'
 import EmployeeItem from './EmployeeItem'
 import { getEmployees } from '../../Utils/Employees'
 import './index.scss'
-import { bool } from 'prop-types';
 
 class Employees extends Component {
   constructor(props){
@@ -73,7 +72,7 @@ class Employees extends Component {
           renderListTitle={renderListTitle}
           renderItem={renderItem}
           getItems={getEmployees}
-          sortFilter={null}
+          sortFilter={this.state.sort}
         />
       </div>
     )
