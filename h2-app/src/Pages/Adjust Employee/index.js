@@ -125,7 +125,7 @@ class Adjust_Employee extends Component {
           ...this.state.defaultDeptItem,
           employeeId: res.Id
         }
-      }, () => console.log(this.state.employee))
+      })
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
 

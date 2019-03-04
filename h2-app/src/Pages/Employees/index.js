@@ -9,44 +9,39 @@ class Employees extends Component {
     super(props)
     this.state = {
       sort: {
-        coloumn: 0,
+        column: 'Id',
         ascDesc: true
       }
     }
   }
   render() {
     const renderListTitle = () => {
-      const sort = (id) => {
+      const sort = (column) => {
         let sort = true
-        if (id === this.state.sort.coloumn) {
+        if (column === this.state.sort.column) {
           sort = !this.state.sort.ascDesc
         }
         this.setState({
           sort: {
-            coloumn: id,
+            column: column,
             ascDesc: sort
           }
-        }, () => {console.log(this.state.sort.ascDesc, this.state.sort.coloumn)})
+        })
       }
 
-      const toggleArr = (id) => {
-        if (id === this.state.sort.coloumn){
-          if(this.state.sort.ascDesc){
-            return "▼";
-          } else {
-            return "▲";
-          }
-        }
-        return
+      const toggleArr = (column) => {
+        if (column !== this.state.sort.column) return
+        if (this.state.sort.ascDesc) return "▲"
+        else return "▼"
       }
       return (
         <div className="EmployeeItem">
-          <div className="list_item_id" onClick={() => sort(0)}># {toggleArr(0)}</div>
-          <div onClick={() => sort(1)}>Firstname {toggleArr(1)}</div>
-          <div onClick={() => sort(2)}>Lastname {toggleArr(2)}</div>
-          <div onClick={() => sort(3)}>Birth {toggleArr(3)}</div>
-          <div onClick={() => sort(4)}>Gender {toggleArr(4)}</div>
-          <div className="list_item_hire" onClick={() => sort(5)}>Hire {toggleArr(5)}</div>
+          <div className="list_item_id" onClick={() => sort('Id')}># {toggleArr('Id')}</div>
+          <div onClick={() => sort('firstName')}>Firstname {toggleArr('firstName')}</div>
+          <div onClick={() => sort('lastName')}>Lastname {toggleArr('lastName')}</div>
+          <div onClick={() => sort('birthDate')}>Birth {toggleArr('birthDate')}</div>
+          <div onClick={() => sort('gender')}>Gender {toggleArr('gender')}</div>
+          <div className="list_item_hire" onClick={() => sort('hireDate')}>Hire {toggleArr('hireDate')}</div>
         </div>
       )
     }

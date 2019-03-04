@@ -26,29 +26,29 @@ const deptManHistory = "SELECT m.dept_no AS departmentId, e.emp_no AS employeeId
 rest.page("/api/employees/get/", async (q, res) => {
     try {
         let baseSQL =  empBaseSelect + ` ORDER BY [sort] LIMIT [limitCount]`
+        var column = 'emp_no'
         if (q.sort !== undefined && q.sort != null) {
-            var column = ''
             var ascDesc = ''
             switch (q.sort.column) {
-                
-                case 1:
-                    column = 'frist_name'
+                case 'firstName':
+                    column = 'first_name'
                     break;
-                case 2:
+                case 'lastName':
                     column = 'last_name'
                     break;
-                case 3:
+                case 'birthDate':
                     column = 'birth_date'
                     break;
-                case 4:
+                case 'gender':
                     column = 'gender'
                     break;
-                case 5:
+                case 'hireDate':
                     column = 'hire_date'
                     break;
-                case 0:
-                default:
+                case 'Id':
                     column = 'emp_no'
+                    break;
+                default:
                     break;
             }
 
@@ -81,8 +81,8 @@ rest.page("/api/employees/get/", async (q, res) => {
 
         var where = ''
         var isWhereAdded = false
-        if (q.lastId !== undefined && Number.isNaN(q.lastId) === false) {
-            where += `WHERE emp_no ${q.isTop === true ? '<' : '>'} ${q.lastId} `
+        if (q.lastValue !== undefined && q.lastValue !== null) {
+            where += `WHERE ${column} ${q.isTop === true ? '<' : '>'} ${q.lastValue} `
             isWhereAdded = true
         }
         
