@@ -320,37 +320,25 @@ renderSalariesChart() {
       return (
         <div className="postEmployee">
           <form className="main-modify-form">
-            <div className="form-group row">
               <label htmlFor="firstname" className="col-form-label">Firstname</label>
               <input id="firstname" type="text" className="form-input" id="firstnameInput" name="firstName" onChange={this.onChange} onBlur={this.onBlur} defaultValue={this.state.employee.firstName}/>
-            </div>
-            <div className="form-group row">
               <label htmlFor="lastname" className="col-form-label">Lastname</label>
               <input id="lastname" type="text" className="form-input" id="lastnameInput" name="lastName" onChange={this.onChange} onBlur={this.onBlur} defaultValue={this.state.employee.lastName}/>
-            </div>
-            <div className="form-group row">
               <label htmlFor="birthdate" className="col-form-label">Birthdate</label>
               <input id="birthdate" type="date" className="form-input" id="birthdateInput" name="birthDate" onChange={this.onChange} onBlur={this.onBlur} value={this.state.employee.birthDate}/>
-            </div>
-            <fieldset className="form-group">
-              <div className="row">
-                <legend className="col-form-label ">Gender</legend>
-                <div className="col-sm-10">
-                  <div className="form-check">
-                    <input className="form-check-input" type="radio" name="gender" id="maleGender" value="M" onChange={this.onChange} onBlur={this.onBlur} checked={this.state.employee.gender === 'M'} />
-                    <label className="form-check-label" htmlFor="maleGender">Male</label>
+              <fieldset className="form-group">
+                <label className="col-form-label gender">Gender</label>
+                  <div className="gender-holder">
+                    <label className="gender-type-label">Male</label>
+                    <input className="form-check-input gender" type="radio" name="gender" id="maleGender" value="M" onChange={this.onChange} onBlur={this.onBlur} checked={this.state.employee.gender === 'M'} />
                   </div>
-                  <div className="form-check">
-                    <input className="form-check-input" type="radio" name="gender" id="femaleGender" value="F" onChange={this.onChange} onBlur={this.onBlur} checked={this.state.employee.gender === 'F'} />
-                    <label className="form-check-label" htmlFor="femaleGender">Female</label>
+                  <div className="gender-holder">
+                    <label className="gender-type-label">Female</label>
+                    <input className="form-check-input gender" type="radio" name="gender" id="femaleGender" value="F" onChange={this.onChange} onBlur={this.onBlur} checked={this.state.employee.gender === 'F'} />
                   </div>
-                </div>
-              </div>
-            </fieldset>
-            <div className="form-group row">
+              </fieldset>
               <label htmlFor="hiredate" className="col-form-label">Hiredate</label>
               <input id="hiredate" type="date" className="form-input" onChange={this.onChange} onBlur={this.onBlur} value={this.state.employee.hireDate}/>
-            </div>
           </form>
           
           {this.renderSalariesChart()}
