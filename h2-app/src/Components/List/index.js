@@ -20,11 +20,12 @@ class List extends Component {
       },
       listUpdated: false,
       listItemHeight: 0,
-      maxListSize: 0
+      maxListSize: 0,
+      scrollToIndex: null
     }
 
     this.listRef = React.createRef()
-    this.listTitleRef = React.createRef() 
+    this.listTitleRef = React.createRef()
     this.setHeight = this.setHeight.bind(this)
     this.seach = this.seach.bind(this)
     this.updateItems = this.updateItems.bind(this)
@@ -105,17 +106,14 @@ class List extends Component {
 
   updateItems(newList) {
     this.setState({
-      ...this.state,
         items: [],
         listUpdated: true
     })
     this.setState({
-      ...this.state,
       items: newList
     }, () => {
       setTimeout(() => {
         this.setState({
-          ...this.state,
           listUpdated: false
         })
       }, 200)
@@ -159,7 +157,7 @@ class List extends Component {
           newList.length = ceepCount
         }
       }
-      
+
       this.updateItems(newList)
     }).catch(err => console.log(err)) //TODO: better error handeling
   }

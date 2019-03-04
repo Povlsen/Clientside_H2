@@ -147,7 +147,6 @@ rest.page("/api/employee/departments/missing/get/", async (q, res) => {
 rest.page("/api/employee/post/", async (q, res) => {
     try {
         if (!isValidDate(q.birthDate) || !isValidDate(q.hireDate)) {
-            console.log('unvalid dates')
             res.writeHead(400, "Bad Request")
             return
         }
@@ -239,7 +238,15 @@ rest.page("/api/employee/title/post/", async (q, res) => {
 //#region Department(s) API's
 rest.page("/api/departments/get/", async (q, res) => {
     try {
-        return db.query(deptBaseSelect)
+        var qur = deptBaseSelect
+        if (typeof q === 'object' && typeof q.seach === 'string') {
+            if (q.seach.match(/^ *$/) === null) {
+                var seachText = q.seach.replace(' ', '|')
+                qur += ` WHERE (dept_no REGEXP '${seachText}' OR dept_name REGEXP '${seachText}')`
+            }
+        }
+
+        return db.query(qur)
     } catch {
         res.writeHead(400, "Bad Request")
         return

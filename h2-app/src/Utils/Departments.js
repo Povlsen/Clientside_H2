@@ -1,7 +1,7 @@
 import { GET, POST } from './API'
 
-export async function getDepartments() {
-    return GET('departments/get/')
+export async function getDepartments(seach = null) {
+    return GET('departments/get/' + (typeof seach === 'string' ? `?seach=${seach}` : ''))
 }
 
 export async function getDepartment(Id) {

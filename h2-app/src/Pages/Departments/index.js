@@ -7,52 +7,17 @@ import DepartmentData from './departmentData'
 
 class Departments extends Component {
   state = {
-    departments: [],
-    availableHeight: 650
+    departments: []
   }
 
   componentDidMount() {
-    getDepartments({ limit: 100 }).then(res => {
+    getDepartments().then(res => {
       this.setState({ ...this.state, departments: res })
     }).catch(err => console.log(err)) //TODO: better error handeling
-
-    window.addEventListener('resize', this.setHeight.bind(this))
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.setHeight)
-  }
-
-  componentDidUpdate() {
-    this.setHeight()
-  }
-
-  setHeight() {
-    var height = (window.innerHeight - document.getElementById('depTitle').getBoundingClientRect().bottom)
-    if (this.state.availableHeight !== height) {
-      this.setState({
-        ...this.state,
-        availableHeight: height
-      })
-    }
-  }
 
   render() {
-    const onScroll = (params) => {
-      var top = params.target.scrollTop
-      var depCount = this.state.departments.length
-
-      if (((depCount * 39) - (top+this.state.availableHeight)) === 0) {
-        var lastId = this.state.departments[depCount-1].Id        
-        getDepartments({ limit: 100, lastId: lastId, seach: this.state.seach }).then(res => {
-          this.setState({ 
-            ...this.state, 
-            departments: this.state.departments.concat(res)
-          })
-        }).catch(err => console.log(err)) //TODO: better error handeling
-      }
-    }
-
     const textChanged = (e) => {
       this.setState({
         ...this.state,
@@ -62,7 +27,7 @@ class Departments extends Component {
 
 
     const seach = () => {
-      getDepartments({ limit: 100, seach: this.state.seach }).then(res => {
+      getDepartments(this.state.seach).then(res => {
         this.setState({ 
           ...this.state, 
           departments: res
@@ -73,11 +38,8 @@ class Departments extends Component {
     return (
       <div className="Departments">
         <h1>Departments</h1>
-        
         <input type="text" className="seachBox" placeholder="Seach" onChange={textChanged} onBlur={seach} />
-       
-        <div id="depTitle" className="listTitle">
-          
+        <div className="listTitle">      
         </div>
           <div className="menu">
             <ReactList
@@ -91,13 +53,7 @@ class Departments extends Component {
               type='simple'
             />
           </div>
-
-          <DepartmentData></DepartmentData>
-      {/*    
-        <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-        </button>
-      */}
+          <DepartmentData />
       </div>
     )
   }
