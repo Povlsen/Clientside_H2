@@ -333,12 +333,12 @@ renderSalariesChart() {
               <fieldset className="form-group">
                 <label className="col-form-label gender">Gender</label>
                   <div className="gender-holder">
-                    <label className="gender-type-label">Male</label>
                     <input className="form-check-input gender" type="radio" name="gender" id="maleGender" value="M" onChange={this.onChange} onBlur={this.onBlur} checked={this.state.employee.gender === 'M'} />
+                    <label className="gender-type-label">Male</label>
                   </div>
                   <div className="gender-holder">
-                    <label className="gender-type-label">Female</label>
                     <input className="form-check-input gender" type="radio" name="gender" id="femaleGender" value="F" onChange={this.onChange} onBlur={this.onBlur} checked={this.state.employee.gender === 'F'} />
+                    <label className="gender-type-label">Female</label>
                   </div>
               </fieldset>
               <label htmlFor="hiredate" className="col-form-label">Hiredate</label>
