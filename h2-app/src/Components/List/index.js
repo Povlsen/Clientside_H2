@@ -110,7 +110,11 @@ class List extends Component {
 
   seach() {
     if (this.props.autoLoad) {
-      this.props.getItems(this.state.filter).then(res => {
+      let filter = {
+        ...this.state.filter,
+        sort: this.props.sortFilter ? this.props.sortFilter : null
+      }
+      this.props.getItems(filter).then(res => {
         this.updateItems(res)
       }).catch(err => console.log(err)) //TODO: better error handeling
     } else {
@@ -129,6 +133,7 @@ class List extends Component {
     var filter = this.state.filter
     filter.lastId = lastId
     filter.isTop = isTop
+    filter.sort = this.props.sortFilter ? this.props.sortFilter : null
 
     this.props.getItems(filter).then(res => {
       if (res.length === 0) return

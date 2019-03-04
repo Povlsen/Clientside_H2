@@ -12,6 +12,9 @@ class App extends Component {
       },
       MAX_DATE: {
         value: '9999-01-01'
+      },
+      CURRENT: {
+        value: new Date().toISOString().substring(0, 10)
       }
     })
   }

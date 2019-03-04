@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { getDateString } from '../../../Utils/helpers'
 import { getEmployeeMissingDepts } from '../../../Utils/Employees'
 import './index.scss'
 
@@ -42,8 +41,8 @@ constructor(props) {
         ...this.state,
         item: {
           ...item,
-          from: getDateString(item.from),
-          to: getDateString(item.to)
+          from: item.from,
+          to: item.to
         }
       })
   }

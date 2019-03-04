@@ -5,7 +5,8 @@ var db = mysql.createPool({
     user: 'root',
     password: '',
     database: 'employees',
-    connectionLimit: 10
+    connectionLimit: 10,
+    dateStrings: true
 });
 
 //#region Const queries
