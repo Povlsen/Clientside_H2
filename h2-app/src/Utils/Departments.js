@@ -8,6 +8,10 @@ export async function getDepartment(Id) {
     return GET(`department/get/?Id=${Id}`)
 }
 
+export async function postDepartment(data) {
+    return POST('department/post/', data)
+}
+
 export async function postDepartmentManager(data) {
     return POST('department/manager/post/', data)
 }

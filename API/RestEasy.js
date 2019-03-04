@@ -6,6 +6,7 @@ This code has been shared on the 26th of February 2019 for use at Mercantec
 
 var events = require("events")
 var eventEmitter = new events.EventEmitter();
+eventEmitter.setMaxListeners(15) //Default 11 is the maximum
 var http = require("http")
 var url = require("url")
 var fs = require("fs")

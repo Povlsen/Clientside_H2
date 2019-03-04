@@ -86,18 +86,16 @@ rest.page("/api/employees/get/", async (q, res) => {
             isWhereAdded = true
         }
         
-        if (q.seach !== undefined && q.seach !== null) {
-            if (q.seach.match(/^ *$/) === null) {
-                var seachText = q.seach.replace(' ', '|')
-                if (!isWhereAdded) where += `WHERE (emp_no REGEXP '${seachText}' `
-                else where += `AND (emp_no REGEXP '${seachText}' `
-    
-                where += `OR birth_date REGEXP '${seachText}' `
-                where += `OR first_name REGEXP '${seachText}' `
-                where += `OR last_name REGEXP '${seachText}' `
-                where += `OR gender REGEXP '${seachText}' `
-                where += `OR hire_date REGEXP '${seachText}') `
-            }
+        if (!isNullOrWhitespace(q.seach)) {
+            var seachText = q.seach.replace(' ', '|')
+            if (!isWhereAdded) where += `WHERE (emp_no REGEXP '${seachText}' `
+            else where += `AND (emp_no REGEXP '${seachText}' `
+
+            where += `OR birth_date REGEXP '${seachText}' `
+            where += `OR first_name REGEXP '${seachText}' `
+            where += `OR last_name REGEXP '${seachText}' `
+            where += `OR gender REGEXP '${seachText}' `
+            where += `OR hire_date REGEXP '${seachText}') `
         }
         
         baseSQL = baseSQL.replace('[where]', where)
@@ -239,11 +237,9 @@ rest.page("/api/employee/title/post/", async (q, res) => {
 rest.page("/api/departments/get/", async (q, res) => {
     try {
         var qur = deptBaseSelect
-        if (typeof q === 'object' && typeof q.seach === 'string') {
-            if (q.seach.match(/^ *$/) === null) {
-                var seachText = q.seach.replace(' ', '|')
-                qur += ` WHERE (dept_no REGEXP '${seachText}' OR dept_name REGEXP '${seachText}')`
-            }
+        if (typeof q === 'object' && !isNullOrWhitespace(q.seach)) {
+            var seachText = q.seach.replace(' ', '|')
+            qur += ` WHERE (dept_no REGEXP '${seachText}' OR dept_name REGEXP '${seachText}')`
         }
 
         return db.query(qur)
@@ -255,16 +251,54 @@ rest.page("/api/departments/get/", async (q, res) => {
 
 rest.page("/api/department/get/", async (q, res) => {
     try {
-        let getBaseDept = deptBaseSelect + `WHERE dept_no = ${q.Id}`
+        let getBaseDept = deptBaseSelect + ` WHERE dept_no = '${q.Id}'`
         var department = (await db.query(getBaseDept))[0] //only need one
         if (department === undefined) {
             res.writeHead(400, "Bad Request")
             return
         }
         
-        department.managers = await db.query(deptManHistory.replace('[deptId]', q.Id))
+        department.managers = await db.query(deptManHistory.replace('[deptId]', `'${q.Id}'`))
 
         return department
+    } catch {
+        res.writeHead(400, "Bad Request")
+        return
+    }
+})
+
+rest.page("/api/department/post/", async (q, res) => {
+    try {
+        if (isNullOrWhitespace(q.name)) {
+            res.writeHead(400, "Bad Request")
+            return
+        }
+        
+        let getBaseDept = deptBaseSelect + ` WHERE dept_no = '${q.Id}'`
+        var department = (await db.query(getBaseDept))[0] //only need one
+        var isBadRequest = false
+        
+        if (department !== undefined) {
+            // tile exists
+            var updateQur = `UPDATE departments SET dept_name = '${q.name}' WHERE dept_no = '${q.Id}'`
+            var updated = await db.query(updateQur)
+            if (updated.affectedRows === 0) isBadRequest = true
+        } else {
+            var deptId = await getNextId('departments', 'dept_no')
+            var insertQur = `INSERT INTO departments (dept_no, dept_name) VALUES ('${deptId}', '${q.name}')`
+            var inserted = await db.query(insertQur)
+
+            if (inserted.affectedRows === 0) isBadRequest = true
+
+            getBaseDept = deptBaseSelect + ` WHERE dept_no = '${deptId}'`
+        }
+
+        if (isBadRequest) {
+            res.writeHead(400, "Bad Request")
+            return
+        }
+
+        return (await db.query(getBaseDept))[0]
     } catch {
         res.writeHead(400, "Bad Request")
         return
@@ -296,7 +330,9 @@ rest.page("/api/department/manager/post/", async (q, res) => {
             return
         }
 
-        return await db.query(empManHistory.replace('[empId]', q.employeeId))
+        if (q.isFromDepartment) return await db.query(deptManHistory.replace('[deptId]', `'${q.departmentId}'`))
+        else if (q.isFromEmployee) return await db.query(empManHistory.replace('[empId]', q.employeeId))
+        else return {}
     } catch {
         res.writeHead(400, "Bad Request")
         return
@@ -368,3 +404,9 @@ const isValidDate = (date) => {
         return false;
     }
   }
+
+  const isNullOrWhitespace = (input) => {
+    if (typeof input === 'undefined' || input == null) return true
+
+    return (input.replace(/\s/g, '').length < 1)
+}

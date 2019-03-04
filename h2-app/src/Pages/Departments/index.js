@@ -3,7 +3,7 @@ import ReactList from 'react-list'
 import Item from './listItem'
 import { getDepartments } from '../../Utils/Departments'
 import './index.scss'
-import DepartmentData from './departmentData'
+import Department from './Department'
 
 class Departments extends Component {
   state = {
@@ -16,7 +16,6 @@ class Departments extends Component {
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
 
-
   render() {
     const textChanged = (e) => {
       this.setState({
@@ -28,11 +27,18 @@ class Departments extends Component {
 
     const seach = () => {
       getDepartments(this.state.seach).then(res => {
-        this.setState({ 
-          ...this.state, 
-          departments: res
+        this.setState({
+          departments: []
+        }, () => {
+          this.setState({
+            departments: res
+          })
         })
       }).catch(err => console.log(err)) //TODO: better error handeling
+    }
+
+    const changeSelectedDepartment = (Id) => {
+      this.props.history.push(`/departments/${Id}`)
     }
 
     return (
@@ -44,7 +50,7 @@ class Departments extends Component {
           <div className="menu">
             <ReactList
               itemRenderer={(index, key) => { return <Item 
-                onClick={(Id) => this.props.history.push(`/departments/${Id}`)}
+                onClick={changeSelectedDepartment}
                 item={this.state.departments[index]} 
                 key={key}
                 /> 
@@ -53,7 +59,11 @@ class Departments extends Component {
               type='simple'
             />
           </div>
-          <DepartmentData />
+          <Department Id={this.props.match.params.Id} newId={Id => {
+              changeSelectedDepartment(Id)
+              seach()              
+            }} 
+          />
       </div>
     )
   }

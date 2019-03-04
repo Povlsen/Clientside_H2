@@ -1,0 +1,65 @@
+.department {
+    .managers {
+        width: 320px;
+        display: inline-flex;
+        >.list {
+            width: -webkit-fill-available;
+        }
+
+        .line {
+            border-bottom: var(--main-third-color) 1px solid;
+        }
+        .deptManItem {
+            @extend .line;
+            width: 100%;
+            display: inline-grid;
+            grid-template-columns: 50% 50%;
+            padding-top: 10px;         
+            cursor: default;
+            >div {
+                text-align: left;
+                color: var(--main-text-color);        
+            }
+            
+            &:not(.edit) {
+                &:hover {
+                    border-color: var(--main-style-color);
+                    background-color: var(--main-second-color);
+                    cursor: pointer;
+                }
+            }
+                    
+            &.edit {
+                padding-bottom: 10px;
+                grid-column-gap: 10px;
+                grid-row-gap: 10px;
+                grid-template-columns: 80px 1fr;
+
+                .main-theam-bth {
+                    border: 1px solid var(--main-style-color);
+                    border-radius: 5px;
+            
+                    &:hover {
+                        color: var(--main-style-color);
+                    }
+                }
+        
+                .new-btn {
+                    margin-top: 5px;
+                    grid-column: 1 / span 2;
+                }
+        
+                .update-btn-group {
+                    display: inline-grid;
+                    grid-column-gap: 10px;
+                    grid-template-columns: 1fr 1fr;
+                    grid-column: 1 / span 2;
+                }
+            }
+
+            .title {
+                color: var(--main-style-color);
+            }
+        }
+    }
+}
