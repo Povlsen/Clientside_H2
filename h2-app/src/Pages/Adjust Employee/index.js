@@ -7,8 +7,6 @@ import TitleItem from './TitleItem'
 import DeptItem from './DeptItem'
 import { Line } from "react-chartjs-2"
 import { MDBContainer } from "mdbreact"
-import NotificationsPage from '../../Components/toasts'
-import { Button, ToastContainer, toast } from 'mdbreact'
 import './index.scss'
 
 class Adjust_Employee extends Component {
@@ -87,7 +85,7 @@ class Adjust_Employee extends Component {
             employeeId: res.Id
           }
         }) 
-      }).catch(err => console.log(err)); /*, {NotificationsPage.notify('error')}*/
+      }).catch(() => this.props.notify('error'))
     }
   }
 
@@ -127,8 +125,8 @@ class Adjust_Employee extends Component {
           ...this.state.defaultDeptItem,
           employeeId: res.Id
         }
-      })
-    }).catch(err => console.log(err)) //TODO: better error handeling
+      }, () => this.props.notify('success'))
+    }).catch(() => this.props.notify('error'))
   }
 
   /*-------------------------SALARY CHART -------------------------------*/
@@ -193,8 +191,8 @@ renderSalariesChart() {
         this.setState({
           ...this.state,
           salaries: res
-        })
-      }).catch(err => console.log(err)) //TODO: better error handeling
+        }, () => this.props.notify('success'))
+      }).catch(() => this.props.notify('error'))
     }
 
     const renderItem = (item, key) => {
@@ -228,8 +226,8 @@ renderSalariesChart() {
         this.setState({
           ...this.state,
           titles: res
-        })
-      }).catch(err => console.log(err)) //TODO: better error handeling
+        }, () => this.props.notify('success'))
+      }).catch(() => this.props.notify('error'))
     }
 
     const renderItem = (item, key) => {
@@ -265,17 +263,17 @@ renderSalariesChart() {
         this.setState({
           ...this.state,
           [listName]: res
-        })
+        }, () => this.props.notify('success'))
       }
       
       if (listName === 'departments')
-        postDepartmentEmployee(data).then(setRes).catch(err => console.log(err)) //TODO: better error handeling
+        postDepartmentEmployee(data).then(setRes).catch(() => this.props.notify('error'))
       else
-        postDepartmentManager(data).then(setRes).catch(err => console.log(err)) //TODO: better error handeling
+        postDepartmentManager(data).then(setRes).catch(() => this.props.notify('error'))
     }
 
     const renderItem = (item, key) => {
-      return <DeptItem key={key} item={item} postItem={postItem} type={listName === 'deptManagers' ? 'manage' : ''} />
+      return <DeptItem key={key} item={item} postItem={postItem} type={listName === 'deptManagers' ? 'manage' : ''} notify={this.props.notify} />
     } 
 
     return (

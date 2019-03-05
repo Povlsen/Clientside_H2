@@ -53,7 +53,7 @@ constructor(props) {
         ...this.state,
         missingDepts: res
       })
-    }).catch(err => console.log(err)) //TODO: better error handeling
+    }).catch(() => this.props.notify('error'))
   }
 
   onChange(e) {

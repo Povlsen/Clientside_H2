@@ -159,7 +159,10 @@ class List extends Component {
       }
 
       this.updateItems(newList)
-    }).catch(err => console.log(err)) //TODO: better error handeling
+    }).catch(() => {
+      if (typeof this.props.notify === 'function')
+        this.props.notify('error')
+    })
   }
 
   render() {

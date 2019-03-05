@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dashboard from './Pages/Dashboard'
 import Main from './Components/main.router/'
-import { Button, ToastContainer, toast } from 'mdbreact'
+import { ToastContainer, toast } from 'mdbreact'
 
 class App extends Component {
   constructor(props) {
@@ -18,50 +18,38 @@ class App extends Component {
       }
     })
   }
+
+  notify(type) {
+    switch (type) {
+      case 'info':
+        return toast.info('Info message', {
+          autoClose: 5000
+        })
+      case 'success':
+        return toast.success('Success message', {
+          autoClose: 2000
+        })
+      case 'warning':
+        return toast.warn('Warning message')
+      case 'error':
+        return toast.error('Error message')
+      default:
+        return
+    }
+  }
+
   render() {
     return (
       <div className="App">
-        <Main Dashboard={Dashboard} />
+        <Main Dashboard={Dashboard} notify={this.notify} />
+        <ToastContainer
+            hideProgressBar={false}
+            newestOnTop={true}
+            autoClose={3000}
+          />
       </div>
     )
   }
-  /*NotificationsPage(){
-    notify(type){
-    return () => {
-      switch (type) {
-        case 'info':
-          toast.info('Info message', {
-            autoClose: 3000
-          });
-          break;
-        case 'success':
-          toast.success('Success message', {
-            position: "top-right",
-          });
-          break;
-        case 'warning':
-          toast.warn('Warning message');
-          break;
-        case 'error':
-          toast.error('Error message');
-          break;
-      }
-    };
-  };
-    render(){
-      return (
-        <Fragment>
-          <button className='btn btn-info' onClick={this.notify('info')}>Info</button>
-          <button className='btn btn-success' onClick={this.notify('success')}>Success</button>
-          <button className='btn btn-warning' onClick={this.notify('warning')}>Warning</button>
-          <button className='btn btn-danger' onClick={this.notify('error')}>Error</button>
-          <ToastContainer
-            hideProgressBar={true}
-            newestOnTop={true}
-            autoClose={5000}
-          />
-        </Fragment>
-      );
-    }*/
-  }
+}
+
 export default App

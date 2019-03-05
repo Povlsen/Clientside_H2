@@ -13,11 +13,11 @@ class Main extends Component {
       <Route path='/' render={router => <Navbar {...router} />}/>,
       <main>
         <Switch>
-          <Route exact path='/' component={this.props.Dashboard}/>
-          <Route exact path='/employees' render={router => <Employees {...router} />} />
-          <Route exact path='/employees/:Id' component={Adjust_Employee}/>
-          <Route exact path='/departments/:Id?' render={router => <Departments {...router} />} />
-          <Route path='/salary' render={router =><Salary {...router} />} />
+          <Route exact path='/' component={this.props.Dashboard} />
+          <Route exact path='/employees' render={router => <Employees {...router} notify={this.props.notify} />} />
+          <Route exact path='/employees/:Id' render={router => <Adjust_Employee {...router} notify={this.props.notify} />}/>
+          <Route exact path='/departments/:Id?' render={router => <Departments {...router} notify={this.props.notify} />} />
+          <Route path='/salary' render={router => <Salary {...router} notify={this.props.notify} />} />
           <Route component={notfound} />} />
         </Switch>
       </main>
