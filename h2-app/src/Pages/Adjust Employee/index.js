@@ -126,7 +126,7 @@ class Adjust_Employee extends Component {
           ...this.state.defaultDeptItem,
           employeeId: res.Id
         }
-      }, () => console.log(this.state.employee))
+      })
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
 
@@ -343,9 +343,8 @@ renderSalariesChart() {
               </fieldset>
               <label htmlFor="hiredate" className="col-form-label">Hiredate</label>
               <input id="hiredate" type="date" className="form-input" onChange={this.onChange} onBlur={this.onBlur} value={this.state.employee.hireDate}/>
-          </form>
-          
-          {this.renderSalariesChart()}
+            </form>          
+            {this.renderSalariesChart()}
           </div>
           {this.renderLists()}
         </div>

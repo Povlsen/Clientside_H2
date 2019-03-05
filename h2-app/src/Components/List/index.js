@@ -7,18 +7,25 @@ class List extends Component {
     super(props)
     this.state = {
       items: [],
+      firstId: null,
+      lastId: null,
       availableHeight: 0,
       filter: {
         limit: 1,
-        seach: null
+        seach: null,
+        sort: {
+          column: 0,
+          ascDesc: true
+        }
       },
       listUpdated: false,
       listItemHeight: 0,
-      maxListSize: 0
+      maxListSize: 0,
+      scrollToIndex: null
     }
 
     this.listRef = React.createRef()
-    this.listTitleRef = React.createRef() 
+    this.listTitleRef = React.createRef()
     this.setHeight = this.setHeight.bind(this)
     this.seach = this.seach.bind(this)
     this.updateItems = this.updateItems.bind(this)
@@ -27,7 +34,7 @@ class List extends Component {
   }
 
   componentDidMount() {
-    this.updateFromProps(this.props)
+    this.updateFromProps(this.props, false)
 
     if (this.props.filListToWindowBottom) {
       window.addEventListener('resize', this.setHeight.bind(this))
@@ -47,10 +54,17 @@ class List extends Component {
   }
 
   componentWillReceiveProps(next) {
-    this.updateFromProps(next)
+    this.updateFromProps(next, true)
   }
 
-  updateFromProps(props) {
+  updateFromProps(props, isUpdate = false) {
+      let newSort = props.sortFilter
+      let oldSort = this.state.filter.sort
+      let sortHasChanged = false
+      if (typeof newSort === 'object') {
+        sortHasChanged = (newSort.column !== oldSort.column || newSort.ascDesc !== oldSort.ascDesc)
+      } else if (typeof newSort !== typeof oldSort) sortHasChanged = true
+
       this.setState({
         ...this.state,
         availableHeight: props.initialListHeight,
@@ -58,9 +72,10 @@ class List extends Component {
         maxListSize: !isNaN(props.maxListSize) ? props.maxListSize : 120,
         filter: {
             ...this.state.filter,
-            limit: !isNaN(props.loadCount) ? props.loadCount : 100
+            limit: !isNaN(props.loadCount) ? props.loadCount : 100,
+            sort: newSort
         }
-    }, this.seach)
+    }, () => { if ((sortHasChanged && isUpdate) || this.props.autoLoad !== true || this.state.items.length === 0) this.seach() })
   }
 
   setHeight() {
@@ -91,17 +106,14 @@ class List extends Component {
 
   updateItems(newList) {
     this.setState({
-      ...this.state,
         items: [],
         listUpdated: true
     })
     this.setState({
-      ...this.state,
       items: newList
     }, () => {
       setTimeout(() => {
         this.setState({
-          ...this.state,
           listUpdated: false
         })
       }, 200)
@@ -110,11 +122,7 @@ class List extends Component {
 
   seach() {
     if (this.props.autoLoad) {
-      let filter = {
-        ...this.state.filter,
-        sort: this.props.sortFilter ? this.props.sortFilter : null
-      }
-      this.props.getItems(filter).then(res => {
+      this.props.getItems(this.state.filter).then(res => {
         this.updateItems(res)
       }).catch(err => console.log(err)) //TODO: better error handeling
     } else {
@@ -123,20 +131,20 @@ class List extends Component {
           items: this.props.items
       })
     }
-
   }
 
   loadMore(isTop = false) {
     let empCount = this.state.items.length
-    let lastId = isTop ? this.state.items[0].Id : this.state.items[empCount-1].Id
     let ceepCount = this.state.maxListSize
-    var filter = this.state.filter
-    filter.lastId = lastId
+    var filter = { ...this.state.filter }
+    let orderColumn = (filter.sort !== undefined && filter.sort !== null) ? filter.sort.column : 'Id'
+    let lastValue = isTop ? this.state.items[0][orderColumn] : this.state.items[empCount-1][orderColumn]
+    filter.lastValue = lastValue
     filter.isTop = isTop
-    filter.sort = this.props.sortFilter ? this.props.sortFilter : null
-
+    
     this.props.getItems(filter).then(res => {
       if (res.length === 0) return
+
       var newList = []
       if (!isTop) {
         newList = this.state.items.concat(res)
@@ -149,7 +157,7 @@ class List extends Component {
           newList.length = ceepCount
         }
       }
-      
+
       this.updateItems(newList)
     }).catch(err => console.log(err)) //TODO: better error handeling
   }
