@@ -23,11 +23,11 @@ class App extends Component {
     switch (type) {
       case 'info':
         return toast.info('Info message', {
-          autoClose: 3000
+          autoClose: 5000
         })
       case 'success':
         return toast.success('Success message', {
-          position: "top-right",
+          autoClose: 2000
         })
       case 'warning':
         return toast.warn('Warning message')
@@ -45,7 +45,7 @@ class App extends Component {
         <ToastContainer
             hideProgressBar={false}
             newestOnTop={true}
-            autoClose={5000}
+            autoClose={3000}
           />
       </div>
     )
