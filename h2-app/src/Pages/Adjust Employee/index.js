@@ -7,6 +7,7 @@ import TitleItem from './TitleItem'
 import DeptItem from './DeptItem'
 import { Line } from "react-chartjs-2"
 import { MDBContainer } from "mdbreact"
+import NotificationsPage from '../../Components/toasts'
 import './index.scss'
 
 class Adjust_Employee extends Component {
@@ -84,8 +85,8 @@ class Adjust_Employee extends Component {
             ...this.state.defaultDeptItem,
             employeeId: res.Id
           }
-        })
-      }).catch(err => console.log(err)) //TODO: better error handeling
+        }) 
+      }).catch(err => console.log(err)); /*, {NotificationsPage.notify('error')}//TODO: better error handeling*/
     }
   }
 
