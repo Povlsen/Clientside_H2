@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
+import notfound from '../../Pages/404'
 import Employees from '../../Pages/Employees'
 import Navbar from '../navbar'
 import Departments from '../../Pages/Departments'
@@ -17,6 +18,7 @@ class Main extends Component {
           <Route exact path='/employees/:Id' component={Adjust_Employee}/>
           <Route exact path='/departments/:Id?' render={router => <Departments {...router} />} />
           <Route path='/salary' render={router =><Salary {...router} />} />
+          <Route component={notfound} />} />
         </Switch>
       </main>
     ])
