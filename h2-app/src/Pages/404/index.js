@@ -5,7 +5,7 @@ class notfound extends Component {
   render() {
     return (
     <div className="main">
-        <h1>404: <h3>The page you requested was not found.</h3></h1>
+        <h1>ERROR 404 <h1 className="pipe">|</h1> <h3>The page you requested was not found.</h3></h1>
     </div>
     )
   }

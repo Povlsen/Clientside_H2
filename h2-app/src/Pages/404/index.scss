@@ -2,12 +2,37 @@
     width: 100%;
     text-align: center;
     >h1{
+        line-height: 5;
         width: 100%;
         color: var(--main-style-color);
+        >.pipe{
+            display: inline;
+        }
         >h3{
-            display: inline-block;
-            line-height: 10;
+            display: inline;
             color: var(--main-txt-color);
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .main {
+        margin-top: 20%;
+        width: 100%;
+        text-align: center;
+        >h1{
+            line-height: 0;
+            width: 100%;
+            color: var(--main-style-color);
+            >.pipe{
+                display: none;
+
+            }
+            >h3{
+                margin-bottom: 70%;
+                display: inline-block;
+                color: var(--main-txt-color);
+            }
         }
     }
 }
