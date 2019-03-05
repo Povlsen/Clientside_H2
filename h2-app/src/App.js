@@ -43,7 +43,7 @@ class App extends Component {
       <div className="App">
         <Main Dashboard={Dashboard} notify={this.notify} />
         <ToastContainer
-            hideProgressBar={true}
+            hideProgressBar={false}
             newestOnTop={true}
             autoClose={5000}
           />

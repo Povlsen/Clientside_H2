@@ -38,7 +38,7 @@ class Department extends Component {
           },
           managers: res.managers
         })
-      }).catch(err => console.log(err)) //TODO: better error handeling
+      }).catch(() => this.props.notify('error'))
     }
   }
 
@@ -66,8 +66,9 @@ class Department extends Component {
         }
       }, () => {
         if (data.Id !== res.Id) this.props.newId(res.Id)
+        this.props.notify('success')
       })
-    }).catch(err => console.log(err)) //TODO: better error handeling
+    }).catch(() => this.props.notify('error'))
   }
 
   renderManagers() {
@@ -84,8 +85,8 @@ class Department extends Component {
         this.setState({
           ...this.state,
           managers: res
-        })
-      }).catch(err => console.log(err)) //TODO: better error handeling
+        }, () => this.props.notify('success'))
+      }).catch(() => this.props.notify('error')) //TODO: better error handeling
     }
 
     const renderItem = (item, key) => {

@@ -13,7 +13,7 @@ class Departments extends Component {
   componentDidMount() {
     getDepartments().then(res => {
       this.setState({ ...this.state, departments: res })
-    }).catch(err => console.log(err)) //TODO: better error handeling
+    }).catch(() => this.props.notify('error'))
   }
 
   render() {
@@ -34,7 +34,7 @@ class Departments extends Component {
             departments: res
           })
         })
-      }).catch(err => console.log(err)) //TODO: better error handeling
+      }).catch(() => this.props.notify('error'))
     }
 
     const changeSelectedDepartment = (Id) => {
@@ -59,7 +59,7 @@ class Departments extends Component {
               type='simple'
             />
           </div>
-          <Department Id={this.props.match.params.Id} newId={Id => {
+          <Department Id={this.props.match.params.Id} notify={this.props.notify} newId={Id => {
               changeSelectedDepartment(Id)
               seach()              
             }} 

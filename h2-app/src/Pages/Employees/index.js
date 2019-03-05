@@ -68,6 +68,7 @@ class Employees extends Component {
           renderItem={renderItem}
           getItems={getEmployees}
           sortFilter={this.state.sort}
+          notify={this.props.notify}
         />
       </div>
     )
