@@ -73,9 +73,9 @@ constructor(props) {
             <div>{item.from}</div>
             <div className="title">To</div>
             <div>{item.to}</div>
-            <div className="title">First name</div>
+            <div className="title">Firstname</div>
             <div>{item.firstName}</div>
-            <div className="title">Last name</div>
+            <div className="title">Lastname</div>
             <div>{item.lastName}</div>
           </div>
         )
@@ -97,9 +97,9 @@ constructor(props) {
           <input type='date' name='from' className="form-input" value={item.from} onChange={this.onChange} />
           <div className="title">To</div>
           <input type='date' name='to' className="form-input" value={item.to} onChange={this.onChange} />
-          <div className="title">firstName</div>
+          <div className="title">Firstname </div>
           <div>{item.firstName}</div>
-          <div className="title">lastName</div>
+          <div className="title">Lastname </div>
           <div>{item.lastName}</div>
           <div className="update-btn-group">
             <button className="main-theam-bth" onClick={onSave}>Update</button>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dashboard from './Pages/Dashboard'
 import Main from './Components/main.router/'
-import { Button, ToastContainer, toast } from 'mdbreact'
+import { ToastContainer, toast } from 'mdbreact'
 
 class App extends Component {
   constructor(props) {
