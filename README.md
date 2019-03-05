@@ -1,11 +1,6 @@
 Clientside_H2
 
-<<<<<<< HEAD
-Bootstrap cheatsheet
-https://hackerthemes.com/bootstrap-cheatsheet/
-=======
 Nikolai Povlsen, Mikkel Norre og Emil Neirup
->>>>>>> DEV
 
 Node.js backend API = /API kør npm update 
 
@@ -32,6 +27,3 @@ Kør npm start
     "react-scripts": "2.1.5",
     "typescript": "^3.3.3333"
   }
-
-=======
->>>>>>> 2a07f397021772b039db26379c3178a3c32f8ea9
