@@ -1,3 +1,13 @@
-#main {
-    height: 100vh;
+.main {
+    width: 100%;
+    text-align: center;
+    >h1{
+        width: 100%;
+        color: var(--main-style-color);
+        >h3{
+            display: inline-block;
+            line-height: 10;
+            color: var(--main-txt-color);
+        }
+    }
 }
