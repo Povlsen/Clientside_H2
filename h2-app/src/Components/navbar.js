@@ -28,7 +28,7 @@ class Navbar extends Component {
             <ul className="nav navbar-nav">
              <li className={curPath === "/" ? "active" : ""}><Link to='/'>Dashboard</Link></li>
              <li className={curPath === "/employees" ? "active" : ""}><Link to='/employees'>Employees</Link></li>
-             <li className={curPath === "/departments" ? "active" : ""}><Link to='/departments'>Departments</Link></li>
+             <li className={/^\/departments(\/d\d{3})?$/.test(curPath) ? "active" : ""}><Link to='/departments'>Departments</Link></li>
              <li className={/^\/employees\/([0-9]+)$/.test(curPath) ? "active" : ""}><Link to='/employees/0'>{`${/^\/employees\/([1-9][0-9]+)$/.test(curPath) ? 'Edit' : 'Add'} Employee`}</Link></li>
             </ul>
           </div>
