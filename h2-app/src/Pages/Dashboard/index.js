@@ -9,7 +9,7 @@ class Dashboard extends Component {
             <h3 className="theamAnimation">Add employee</h3> 
             <img src="https://image.flaticon.com/icons/svg/39/39632.svg" alt=""/>
         </div>
-        <div className="grid_item" onClick={() => this.props.history.push(`/salary`)}> 
+        <div className="grid_item" onClick={() => this.props.history.push(`/employees`)}> 
           <h3 className="theamAnimation">Salary</h3>
           <img src="https://image.flaticon.com/icons/svg/150/150430.svg" alt=""/>
         </div>
